@@ -14,5 +14,9 @@ namespace M1APP.Models
         public DbSet<Client> clients { get; set; }
 
         public DbSet<Gestionnaire> gestionnaires { get; set; }
+            public DbSet<Flotte> flottes { get; set; }
+        public DbSet<Offre> offres { get; set; }
+        public DbSet<Reseervation> reservations { get; set; }
+
     }
 }
