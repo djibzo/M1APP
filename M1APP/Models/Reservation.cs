@@ -10,14 +10,15 @@ namespace M1APP.Models
     public class Reservation
     {
         [Key]
-        public int IdRéservation { get; set; }
+        public int IdReservation { get; set; }
         [Display(Name = "Date"), Required(ErrorMessage = "*")]
         public DateTime DateRéservation { get; set; }
         [Display(Name = "Montant"), Required(ErrorMessage = "*")]
-        public float MontantRéservation { get; set; }
+        public float MontantReservation { get; set; }
         [Display(Name = "Statut"), Required(ErrorMessage = "*")]
-        public string StatutRéservation { get; set; }
-        [ForeignKey("idU")]
-        public virtual Utilisateur Utilisateur { get; set; }
+        public string StatutReservation { get; set; }
+
+        [ForeignKey("IdUtilisateur")]
+        public virtual Client Client { get; set; }
     }
 }

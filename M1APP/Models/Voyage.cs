@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,5 +8,21 @@ namespace M1APP.Models
 {
     public class Voyage
     {
+        [Key]
+        public int IdVoyage { get; set; }
+
+        [Display(Name = "Destination"), Required(ErrorMessage = "*"), MaxLength(100)]
+        public string Destination { get; set; }
+
+        [Display(Name = "Date depart"), Required(ErrorMessage = "*")]
+        public DateTime DateDepart { get; set; }
+
+        [Display(Name = "Date arrivee"), Required(ErrorMessage = "*")]
+        public DateTime DateArrivee { get; set; }
+
+        [Display(Name = "Prix"), Required(ErrorMessage = "*")]
+        public float Prix { get; set; }
+
+
     }
 }
