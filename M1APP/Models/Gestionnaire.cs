@@ -9,10 +9,6 @@ namespace M1APP.Models
         [Display(Name = "CNI"), Required(ErrorMessage = "*"), MaxLength(20)]
         public string CNIGestionnaire { get; set; }
 
-        public int? IdAgence { get; set; }
-
-        [ForeignKey("IdAgence")]
-        public virtual Agence Agence { get; set; }
        /* public int IdAnnonce { get; set; }
 
         [ForeignKey("IdAnnonce")]

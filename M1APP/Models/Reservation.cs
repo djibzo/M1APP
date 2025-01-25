@@ -12,13 +12,13 @@ namespace M1APP.Models
         [Key]
         public int IdReservation { get; set; }
         [Display(Name = "Date"), Required(ErrorMessage = "*")]
-        public DateTime DateRéservation { get; set; }
+        public DateTime DateReservation { get; set; }
         [Display(Name = "Montant"), Required(ErrorMessage = "*")]
         public float MontantReservation { get; set; }
         [Display(Name = "Statut"), Required(ErrorMessage = "*")]
         public string StatutReservation { get; set; }
 
-        [ForeignKey("IdUtilisateur")]
+        [ForeignKey("Client")]
         public virtual Client Client { get; set; }
     }
 }

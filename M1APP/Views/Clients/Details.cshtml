@@ -1,0 +1,67 @@
+﻿@model M1APP.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CniClient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CniClient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomUtilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomUtilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrenomUtilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrenomUtilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailUtilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailUtilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PasswordUtilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PasswordUtilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelUtilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelUtilisateur)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdUtilisateur }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

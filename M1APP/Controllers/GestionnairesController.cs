@@ -10,112 +10,107 @@ using M1APP.Models;
 
 namespace M1APP.Controllers
 {
-    public class AgencesController : Controller
+    public class GestionnairesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
 
-        // GET: Agences
+        // GET: Gestionnaires
         public ActionResult Index()
         {
-            var agences = db.agences.Include(a => a.Gestionnaire);
-            return View(agences.ToList());
+            return View(db.gestionnaires.ToList());
         }
 
-        // GET: Agences/Details/5
+        // GET: Gestionnaires/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agence agence = db.agences.Find(id);
-            if (agence == null)
+            Gestionnaire gestionnaire = db.gestionnaires.Find(id);
+            if (gestionnaire == null)
             {
                 return HttpNotFound();
             }
-            return View(agence);
+            return View(gestionnaire);
         }
 
-        // GET: Agences/Create
+        // GET: Gestionnaires/Create
         public ActionResult Create()
         {
-            ViewBag.IdGestionnaire = new SelectList(db.gestionnaires, "IdUtilisateur", "NomUtilisateur");
             return View();
         }
 
-        // POST: Agences/Create
+        // POST: Gestionnaires/Create
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAgence,AdresseAgence,Longitude,Latitude,NineaGestionnaire,RccmGestionnaire,IdGestionnaire")] Agence agence)
+        public ActionResult Create([Bind(Include = "IdUtilisateur,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur,CNIGestionnaire")] Gestionnaire gestionnaire)
         {
             if (ModelState.IsValid)
             {
-                db.agences.Add(agence);
+                db.utilisateurs.Add(gestionnaire);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdGestionnaire = new SelectList(db.gestionnaires, "IdUtilisateur", "NomUtilisateur", agence.IdGestionnaire);
-            return View(agence);
+            return View(gestionnaire);
         }
 
-        // GET: Agences/Edit/5
+        // GET: Gestionnaires/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agence agence = db.agences.Find(id);
-            if (agence == null)
+            Gestionnaire gestionnaire = db.gestionnaires.Find(id);
+            if (gestionnaire == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdGestionnaire = new SelectList(db.gestionnaires, "IdUtilisateur", "NomUtilisateur", agence.IdGestionnaire);
-            return View(agence);
+            return View(gestionnaire);
         }
 
-        // POST: Agences/Edit/5
+        // POST: Gestionnaires/Edit/5
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAgence,AdresseAgence,Longitude,Latitude,NineaGestionnaire,RccmGestionnaire,IdGestionnaire")] Agence agence)
+        public ActionResult Edit([Bind(Include = "IdUtilisateur,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur,CNIGestionnaire")] Gestionnaire gestionnaire)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(agence).State = EntityState.Modified;
+                db.Entry(gestionnaire).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdGestionnaire = new SelectList(db.gestionnaires, "IdUtilisateur", "NomUtilisateur", agence.IdGestionnaire);
-            return View(agence);
+            return View(gestionnaire);
         }
 
-        // GET: Agences/Delete/5
+        // GET: Gestionnaires/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agence agence = db.agences.Find(id);
-            if (agence == null)
+            Gestionnaire gestionnaire = db.gestionnaires.Find(id);
+            if (gestionnaire == null)
             {
                 return HttpNotFound();
             }
-            return View(agence);
+            return View(gestionnaire);
         }
 
-        // POST: Agences/Delete/5
+        // POST: Gestionnaires/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Agence agence = db.agences.Find(id);
-            db.agences.Remove(agence);
+            Gestionnaire gestionnaire = db.gestionnaires.Find(id);
+            db.utilisateurs.Remove(gestionnaire);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

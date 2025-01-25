@@ -15,9 +15,13 @@ namespace M1APP.Models
 
         public DbSet<Gestionnaire> gestionnaires { get; set; }
         public DbSet<Agence> agences { get; set; }
-       // public DbSet<Flotte> flottes { get; set; }
-       // public DbSet<Offre> offres { get; set; }
-       // public DbSet<Reservation> reservations { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+
+        public System.Data.Entity.DbSet<M1APP.Models.Admin> Admins { get; set; }
+        // public DbSet<Flotte> flottes { get; set; }
+        // public DbSet<Offre> offres { get; set; }
+        // public DbSet<Reservation> reservations { get; set; }
 
     }
 }
