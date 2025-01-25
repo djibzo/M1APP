@@ -34,6 +34,7 @@ namespace M1APP
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                       "~/Content/PagedList.css",
                       "~/Content/site.css",
                       "~/assets/vendor/bootstrap/css/bootstrap.min.css",
                       "~/assets/vendor/bootstrap-icons/bootstrap-icons.css",

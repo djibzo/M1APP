@@ -7,17 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
-
+using PagedList;
 namespace M1APP.Controllers
 {
     public class AgencesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
+        const int pageSize= 1;
 
         // GET: Agences
-        public ActionResult Index()
+        public ActionResult Index(string Adresse,string ninea,string rccm,int? page)
         {
+            ViewBag.Adresse = Adresse!=null? Adresse : string.Empty;
+            ViewBag.ninea = ninea!=null? ninea : string.Empty;
+            ViewBag.rccm = rccm!=null? rccm : string.Empty;
+
             var agences = db.agences.Include(a => a.Gestionnaire);
+            var liste = agences.ToList();
+            if (!string.IsNullOrEmpty(Adresse))
+            {
+                liste = liste.Where(a => Adresse.ToLower().Contains(Adresse.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(ninea))
+            {
+                liste = liste.Where(a => ninea.ToLower().Contains(ninea.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(Adresse))
+            {
+                liste = liste.Where(a => Adresse.ToLower().Contains(Adresse.ToLower())).ToList();
+            }
+            int pageNumber = (int)page;
+            //return View(liste.ToPagedList())
             return View(agences.ToList());
         }
 
