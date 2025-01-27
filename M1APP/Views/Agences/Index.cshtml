@@ -7,58 +7,93 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.Label("Adresse", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.TextBox("Adresse", ViewBag.Adresse as string)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Ninea", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.TextBox("Ninea", ViewBag.ninea as string)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Rccm", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.TextBox("Rccm", ViewBag.rccm as string)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Rechercher" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Gestionnaire.NomUtilisateur)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Gestionnaire.NomUtilisateur)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AdresseAgence)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AdresseAgence)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Longitude)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Longitude)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Latitude)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Latitude)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NineaGestionnaire)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NineaGestionnaire)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RccmGestionnaire)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().RccmGestionnaire)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gestionnaire.NomUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdresseAgence)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NineaGestionnaire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RccmGestionnaire)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAgence }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAgence }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAgence })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gestionnaire.NomUtilisateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdresseAgence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NineaGestionnaire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RccmGestionnaire)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdAgence }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdAgence }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdAgence })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@* pour garder les criteres de recherches quand on pagine *@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, Adresse = ViewBag.Adresse, ninea = ViewBag.ninea, rccm = ViewBag.rccm }))

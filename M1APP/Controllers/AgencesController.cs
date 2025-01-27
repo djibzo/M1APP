@@ -18,6 +18,7 @@ namespace M1APP.Controllers
         // GET: Agences
         public ActionResult Index(string Adresse,string ninea,string rccm,int? page)
         {
+            // TODO viewbag ?
             ViewBag.Adresse = Adresse!=null? Adresse : string.Empty;
             ViewBag.ninea = ninea!=null? ninea : string.Empty;
             ViewBag.rccm = rccm!=null? rccm : string.Empty;
@@ -32,13 +33,15 @@ namespace M1APP.Controllers
             {
                 liste = liste.Where(a => ninea.ToLower().Contains(ninea.ToLower())).ToList();
             }
-            if (!string.IsNullOrEmpty(Adresse))
+            if (!string.IsNullOrEmpty(rccm))
             {
-                liste = liste.Where(a => Adresse.ToLower().Contains(Adresse.ToLower())).ToList();
+                liste = liste.Where(a => rccm.ToLower().Contains(rccm.ToLower())).ToList();
             }
+            //initialiser page 
+            page = page.HasValue ? page.Value : 1;
             int pageNumber = (int)page;
-            //return View(liste.ToPagedList())
-            return View(agences.ToList());
+            return View(liste.ToPagedList(pageNumber, pageSize));
+            //return View(agences.ToList());
         }
 
         // GET: Agences/Details/5
