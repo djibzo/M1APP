@@ -2,32 +2,122 @@
     ViewBag.Title = "Home Page";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+<main style="background: linear-gradient(135deg, #1a73e8, #0d47a1); min-height: 100vh; padding: 40px 20px; font-family: 'Arial', sans-serif; color: white;">
+    <!-- Section Principale -->
+    <section class="row" aria-labelledby="reservimoTitle" style="animation: fadeIn 1.5s ease-in;">
+        <h1 id="title" style="font-size: 3.5rem; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            RESERVIMO
+            <span style="display: block; font-size: 1.8rem; margin-top: 15px; color: #fdd835;">Votre voyage en toute sérénité</span>
+        </h1>
+        <p class="lead" style="font-size: 1.4rem; text-align: center; max-width: 800px; margin: 0 auto 40px; line-height: 1.6;">
+            Réservez vos vacances idéales : vols, hôtels et activités en quelques clics
+            <br>
+            <a href="#offres" style="background: #fdd835; color: #0d47a1; padding: 12px 30px; border-radius: 25px; text-decoration: none; margin-top: 20px; display: inline-block; transition: transform 0.3s;"
+               onmouseover="this.style.transform='scale(1.05)'"
+               onmouseout="this.style.transform='scale(1)'">
+                Découvrir nos offres →
+            </a>
+        </p>
     </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <!-- Services -->
+    <div class="row" style="max-width: 1200px; margin: 50px auto;">
+        <section class="col-md-4" aria-labelledby="volsTitle" style="animation: slideInLeft 1s ease-out; padding: 20px;">
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
+                <h2 id="gettingStartedTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">✈ Vols</h2>
+                <p style="line-height: 1.6; margin-bottom: 25px;">
+                    Comparez et réservez vos billets d'avion parmi 500 compagnies aériennes
+                </p>
+                <a class="btn btn-outline-dark"
+                   href="#vols"
+                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
+                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
+                    Rechercher
+                </a>
+            </div>
         </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+        <section class="col-md-4" aria-labelledby="hotelsTitle" style="animation: slideInUp 1s ease-out; padding: 20px;">
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
+                <h2 id="librariesTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">🏨 Hôtels</h2>
+                <p style="line-height: 1.6; margin-bottom: 25px;">
+                    Trouvez l'hébergement parfait parmi 1 million d'établissements dans le monde
+                </p>
+                <a class="btn btn-outline-dark"
+                   href="#hotels"
+                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
+                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
+                    Explorer
+                </a>
+            </div>
         </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+        <section class="col-md-4" aria-labelledby="activitesTitle" style="animation: slideInRight 1s ease-out; padding: 20px;">
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
+                <h2 id="hostingTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">🎡 Activités</h2>
+                <p style="line-height: 1.6; margin-bottom: 25px;">
+                    Découvrez 10 000+ activités et excursions uniques dans le monde
+                </p>
+                <a class="btn btn-outline-dark"
+                   href="#activites"
+                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
+                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
+                    Découvrir
+                </a>
+            </div>
         </section>
     </div>
+
+    <style>
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @@keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </main>
