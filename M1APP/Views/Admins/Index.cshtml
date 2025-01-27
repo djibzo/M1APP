@@ -5,7 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+
+<div class="pagetitle">
+    <h1>Admins</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">parametrage</li>
+            <li class="breadcrumb-item active"><a href=@Url.Action("Index","Admins")>Admins</a></li>
+        </ol>
+    </nav>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -33,32 +44,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatriculeAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrenomUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelUtilisateur)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdUtilisateur }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdUtilisateur }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdUtilisateur })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatriculeAdmin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomUtilisateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrenomUtilisateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailUtilisateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PasswordUtilisateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelUtilisateur)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdUtilisateur }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdUtilisateur }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdUtilisateur })
+            </td>
+        </tr>
+    }
 
 </table>

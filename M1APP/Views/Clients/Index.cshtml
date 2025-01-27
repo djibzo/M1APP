@@ -5,7 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="pagetitle">
+    <h1>Clients</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">parametrage</li>
+            <li class="breadcrumb-item active"><a href=@Url.Action("Index","Clients")>Clients</a></li>
+        </ol>
+    </nav>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "Create")
