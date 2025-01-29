@@ -7,73 +7,73 @@
 
 <h2>Create</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Agence</h4>
-        <hr />
+
+    <div class="form-horizontal" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h4 style="color: #333; font-weight: bold; text-align: center;">Agence</h4>
+        <hr style="border: 1px solid #ddd;" />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdresseAgence, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.AdresseAgence, htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AdresseAgence, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.AdresseAgence, new { htmlAttributes = new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" } })
                 @Html.ValidationMessageFor(model => model.AdresseAgence, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" } })
                 @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" } })
                 @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NineaGestionnaire, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.NineaGestionnaire, htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NineaGestionnaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NineaGestionnaire, new { htmlAttributes = new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" } })
                 @Html.ValidationMessageFor(model => model.NineaGestionnaire, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RccmGestionnaire, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.RccmGestionnaire, htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RccmGestionnaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RccmGestionnaire, new { htmlAttributes = new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" } })
                 @Html.ValidationMessageFor(model => model.RccmGestionnaire, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdGestionnaire, "IdGestionnaire", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.LabelFor(model => model.IdGestionnaire, "IdGestionnaire", htmlAttributes: new { @class = "control-label col-md-2", style = "font-weight: bold; color: #555;" })
             <div class="col-md-10">
-                @Html.DropDownList("IdGestionnaire", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IdGestionnaire", null, htmlAttributes: new { @class = "form-control", style = "border: 1px solid #ccc; border-radius: 5px; padding: 10px;" })
                 @Html.ValidationMessageFor(model => model.IdGestionnaire, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 20px; text-align: center;">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 10px 20px; color: white; font-weight: bold; border-radius: 5px; cursor: pointer;" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary", style = "background-color: #2196F3; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;" })
 </div>
 
 @section Scripts {

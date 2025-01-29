@@ -317,3 +317,24 @@
   }
 
 })();
+
+//js for sidbar menu
+
+
+// Récupérer l'URL actuelle
+const currentUrl = window.location.href;
+
+// Sélectionner tous les sous-liens du menu
+const subMenuLinks = document.querySelectorAll('.nav-content a');
+
+// Parcourir chaque lien
+subMenuLinks.forEach(link => {
+    // Vérifier si l'attribut href du lien correspond à l'URL actuelle
+    if (currentUrl.includes(link.href)) {
+        // Ajouter la classe active
+        link.classList.add('active');
+    } else {
+        // Supprimer la classe active des autres liens (au cas où)
+        link.classList.remove('active');
+    }
+});

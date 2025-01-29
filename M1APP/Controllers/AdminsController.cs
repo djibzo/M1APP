@@ -2,23 +2,61 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
+using Microsoft.Owin.BuilderProperties;
+using PagedList;
 
 namespace M1APP.Controllers
 {
     public class AdminsController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
+        const int pageSize = 10;
 
         // GET: Admins
-        public ActionResult Index()
+        /*public ActionResult Index(string matricule, int? page)
+         {
+             ViewBag.Adresse = matricule != null ? matricule : string.Empty;
+             var admins = db.Admins.Include(a => a.MatriculeAdmin);
+             var liste = admins.ToList();
+
+             if (!string.IsNullOrEmpty(matricule))
+             {
+                 liste = liste.Where(a => a.MatriculeAdmin.ToLower().Contains(matricule.ToLower())).ToList();
+             }
+
+             page = page.HasValue ? page.Value : 1;
+             int pageNumber = (int)page;
+             return View(liste.ToPagedList(pageNumber, pageSize));
+         }*/
+
+        public ActionResult Index(string matricule, int? page)
         {
-            return View(db.Admins.ToList());
+            // Initialiser les ViewBag pour conserver les valeurs des filtres dans la vue
+            ViewBag.MatriculeAdmin = !string.IsNullOrEmpty(matricule) ? matricule : string.Empty;
+
+            // Récupérer tous les administrateurs de la base de données
+            // AsQueryable permet d'appliquer les filtres directement sur la requête sans avoir à convertir la liste en mémoire.
+            var admins = db.Admins.AsQueryable();
+
+            // Appliquer les filtres
+            if (!string.IsNullOrEmpty(matricule))
+            {
+                admins = admins.Where(a => a.MatriculeAdmin.ToLower().Contains(matricule.ToLower()));
+            }
+
+            // Initialiser la pagination
+            int pageNumber = (page ?? 1);
+
+            // Retourner la vue avec les résultats paginés
+            return View(admins.OrderBy(a => a.MatriculeAdmin).ToPagedList(pageNumber, pageSize));
         }
+
 
         // GET: Admins/Details/5
         public ActionResult Details(int? id)

@@ -13,35 +13,38 @@ namespace M1APP.Controllers
     public class AgencesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-        const int pageSize= 1;
+        const int pageSize= 10;
 
         // GET: Agences
-        public ActionResult Index(string Adresse,string ninea,string rccm,int? page)
+        public ActionResult Index(string adresse, string ninea, string rccm, int? page)
         {
-            // TODO viewbag ?
-            ViewBag.Adresse = Adresse!=null? Adresse : string.Empty;
-            ViewBag.ninea = ninea!=null? ninea : string.Empty;
-            ViewBag.rccm = rccm!=null? rccm : string.Empty;
+            // Initialiser les ViewBag pour conserver les valeurs des filtres dans la vue
+            ViewBag.Adresse = !string.IsNullOrEmpty(adresse) ? adresse : string.Empty;
+            ViewBag.Ninea = !string.IsNullOrEmpty(ninea) ? ninea : string.Empty;
+            ViewBag.Rccm = !string.IsNullOrEmpty(rccm) ? rccm : string.Empty;
 
-            var agences = db.agences.Include(a => a.Gestionnaire);
-            var liste = agences.ToList();
-            if (!string.IsNullOrEmpty(Adresse))
+            // Récupérer toutes les agences de la base de données
+            var agences = db.agences.AsQueryable();
+
+            // Appliquer les filtres
+            if (!string.IsNullOrEmpty(adresse))
             {
-                liste = liste.Where(a => Adresse.ToLower().Contains(Adresse.ToLower())).ToList();
+                agences = agences.Where(a => a.AdresseAgence.ToLower().Contains(adresse.ToLower()));
             }
             if (!string.IsNullOrEmpty(ninea))
             {
-                liste = liste.Where(a => ninea.ToLower().Contains(ninea.ToLower())).ToList();
+                agences = agences.Where(a => a.NineaGestionnaire.ToLower().Contains(ninea.ToLower()));
             }
             if (!string.IsNullOrEmpty(rccm))
             {
-                liste = liste.Where(a => rccm.ToLower().Contains(rccm.ToLower())).ToList();
+                agences = agences.Where(a => a.RccmGestionnaire.ToLower().Contains(rccm.ToLower()));
             }
-            //initialiser page 
-            page = page.HasValue ? page.Value : 1;
-            int pageNumber = (int)page;
-            return View(liste.ToPagedList(pageNumber, pageSize));
-            //return View(agences.ToList());
+
+            // Initialiser la pagination
+            int pageNumber = (page ?? 1);
+
+            // Retourner la vue avec les résultats paginés
+            return View(agences.OrderBy(a => a.AdresseAgence).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Agences/Details/5

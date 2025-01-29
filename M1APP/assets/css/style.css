@@ -1231,3 +1231,15 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.nav-content a.active {
+    background-color: blue; /* Fond bleu */
+    color: white !important; /* Texte blanc */
+    border-radius:5%;
+    width:70%;
+}
+
+    .nav-content a.active i {
+        color: white !important; /* Icône blanche */
+    }
+

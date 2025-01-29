@@ -6,18 +6,39 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using M1APP.Models;
+using Microsoft.Owin.BuilderProperties;
+using PagedList;
 
 namespace M1APP.Controllers
 {
     public class GestionnairesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
+        const int pageSize = 10;
 
         // GET: Gestionnaires
-        public ActionResult Index()
+        //string cni, int? page
+        public ActionResult Index(string cni, int? page)
         {
-            return View(db.gestionnaires.ToList());
+            // Initialiser les ViewBag pour conserver les valeurs des filtres dans la vue
+            ViewBag.CNI = !string.IsNullOrEmpty(cni) ? cni : string.Empty;
+
+            // Récupérer tous les gestionnaires de la base de données
+            var gestionnaires = db.gestionnaires.AsQueryable();
+
+            // Appliquer les filtres
+            if (!string.IsNullOrEmpty(cni))
+            {
+                gestionnaires = gestionnaires.Where(g => g.CNIGestionnaire.ToLower().Contains(cni.ToLower()));
+            }
+
+            // Initialiser la pagination
+            int pageNumber = (page ?? 1);
+
+            // Retourner la vue avec les résultats paginés
+            return View(gestionnaires.OrderBy(g => g.CNIGestionnaire).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Gestionnaires/Details/5

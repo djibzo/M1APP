@@ -84,46 +84,38 @@
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Parametrages</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href=@Url.Action("Index","Agences")>
+                        <a href="@Url.Action("Index", "Agences")" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Agences" ? "active" : "")">
                             <i class="bi bi-circle"></i><span>Agences</span>
                         </a>
                     </li>
                     <li>
-                        <a href=@Url.Action("Index","Gestionnaires")>
+                        <a href="@Url.Action("Index", "Gestionnaires")" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Gestionnaires" ? "active" : "")">
                             <i class="bi bi-circle"></i><span>Gestionnaires</span>
                         </a>
                     </li>
                     <li>
-                        <a href=@Url.Action("Index","Admins")>
+                        <a href="@Url.Action("Index", "Admins")" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Admins" ? "active" : "")">
                             <i class="bi bi-circle"></i><span>Admins</span>
                         </a>
                     </li>
                     <li>
-                        <a href=@Url.Action("Index","Clients")>
+                        <a href="@Url.Action("Index", "Clients")" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Clients" ? "active" : "")">
                             <i class="bi bi-circle"></i><span>Clients</span>
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Components Nav -->
-            <!--
-            <li class="nav-heading">Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li> End Profile Page Nav -->
+            </li>
 
         </ul>
+
 
     </aside><!-- End Sidebar-->
 

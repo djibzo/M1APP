@@ -7,17 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
-
+using PagedList;
 namespace M1APP.Controllers
 {
     public class ClientsController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-
+        const int pageSize = 10;
         // GET: Clients
-        public ActionResult Index()
+        public ActionResult Index(string cni, int? page)
         {
-            return View(db.Clients.ToList());
+            ViewBag.cni = cni != null ? cni : string.Empty;
+            // Récupère tous les administrateurs de la base de données
+            var clients = db.Clients.AsQueryable();
+            var FilteredClients = clients;
+            if (!string.IsNullOrEmpty(cni))
+            {
+                FilteredClients = clients.Where(a => a.CniClient.ToLower().Contains(cni.ToLower()));
+            }
+            int pageNumber = (page ?? 1);
+            return View(FilteredClients.OrderBy(a => a.CniClient).ToPagedList(pageNumber, pageSize));
+
+            //return View(db.Clients.ToList());
         }
 
         // GET: Clients/Details/5

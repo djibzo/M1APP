@@ -1,4 +1,5 @@
-﻿@model IEnumerable<M1APP.Models.Client>
+﻿@model PagedList.IPagedList<M1APP.Models.Client>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -11,63 +12,78 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
             <li class="breadcrumb-item">parametrage</li>
-            <li class="breadcrumb-item active"><a href=@Url.Action("Index","Clients")>Clients</a></li>
+            <li class="breadcrumb-item active"><a href=@Url.Action("Index", "Clients")>Clients</a></li>
         </ol>
     </nav>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CniClient)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomUtilisateur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PrenomUtilisateur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailUtilisateur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordUtilisateur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TelUtilisateur)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CniClient)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrenomUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordUtilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelUtilisateur)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdUtilisateur }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdUtilisateur }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdUtilisateur })
-        </td>
-    </tr>
+@using (Html.BeginForm("Index", "Clients", FormMethod.Get))
+{
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <div class="form-group" style="margin-bottom: 15px;">
+            @Html.Label("CniClient", htmlAttributes: new { @class = "control-label col-md-4", style = "color: #2196F3; font-weight: bold;" })
+            <div class="col-md-10">
+                @Html.TextBox("cni", ViewBag.cni as string, new { @class = "form-control", style = "border: 1px solid #ddd; border-radius: 4px; padding: 8px; width: 100%;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Rechercher" class="btn btn-primary" style="background-color: #2196F3; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#1e88e5'" onmouseout="this.style.backgroundColor='#2196F3'" />
+            </div>
+        </div>
+    </div>
 }
 
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @style = "background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#1e88e5'", onmouseout = "this.style.backgroundColor='#2196F3'" })
+</p>
+
+<table class="table" style="width: 100%; border-collapse: collapse; margin-top: 20px; animation: fadeIn 1s ease-in;">
+    <tr style="background-color: #f2f2f2;">
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().CniClient)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().NomUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().PrenomUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().EmailUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Mot de passe</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().TelUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="border-bottom: 1px solid #ddd; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#f9f9f9'" onmouseout="this.style.backgroundColor='white'">
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.CniClient)</td>
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.NomUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.PrenomUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.EmailUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.PasswordUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.TelUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdUtilisateur }, new { @style = "background-color: #2196F3; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#1e88e5'", onmouseout = "this.style.backgroundColor='#2196F3'" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdUtilisateur }, new { @style = "background-color: #4CAF50; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#45a049'", onmouseout = "this.style.backgroundColor='#4CAF50'" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdUtilisateur }, new { @style = "background-color: #f44336; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#e53935'", onmouseout = "this.style.backgroundColor='#f44336'" })
+            </td>
+        </tr>
+    }
 </table>
+
+<div style="text-align: center; margin-top: 20px;">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, cni = ViewBag.cni }))
+</div>
+
+<style>
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>

@@ -9,14 +9,14 @@
     <h1>Agences</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item">parametrage</li>
             <li class="breadcrumb-item active"><a href=@Url.Action("Index","Agences")>Agences</a></li>
         </ol>
     </nav>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(("Index", "Agences", FormMethod.Get)))
 {
     <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px;">
         <div class="form-group" style="margin-bottom: 15px;">

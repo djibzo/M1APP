@@ -1,9 +1,12 @@
-﻿@model IEnumerable<M1APP.Models.Gestionnaire>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<M1APP.Models.Gestionnaire>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="pagetitle">
     <h1>Gestionnaires</h1>
     <nav>
@@ -15,17 +18,34 @@
     </nav>
 </div>
 
+
+
+
+
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @style = "background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#1e88e5'", onmouseout = "this.style.backgroundColor='#2196F3'" })
 </p>
 
+
+<!-- Formulaire de recherche -->
+@using (Html.BeginForm("Index", "Gestionnaires", FormMethod.Get))
+{
+    <div class="form-group" style="margin-bottom: 20px;">
+        <label for="cni" style="font-weight: bold; margin-bottom: 5px; display: block;">Recherche par CNI:</label>
+        <input type="text" name="cni" value="@ViewBag.CNI" class="form-control" placeholder="Entrez le CNI" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: inset 0 1px 3px rgba(0,0,0,.12); transition: border-color .3s, box-shadow .3s;" />
+    </div>
+    <button type="submit" class="btn btn-primary" style="background-color: #2196F3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; transition: background-color .3s;">
+        Rechercher
+    </button>
+}
+
 <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 20px; animation: fadeIn 1s ease-in;">
     <tr style="background-color: #f2f2f2;">
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.NomUtilisateur)</th>
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.PrenomUtilisateur)</th>
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.EmailUtilisateur)</th>
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.TelUtilisateur)</th>
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.CNIGestionnaire)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().NomUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().PrenomUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().EmailUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().TelUtilisateur)</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().CNIGestionnaire)</th>
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Actions</th>
     </tr>
 
@@ -45,6 +65,11 @@
         </tr>
     }
 </table>
+
+<!-- Pagination -->
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, cni = ViewBag.CNI }))
+</div>
 
 <style>
     @@keyframes fadeIn {
