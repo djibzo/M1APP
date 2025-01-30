@@ -2,122 +2,163 @@
     ViewBag.Title = "Home Page";
 }
 
-<main style="background: linear-gradient(135deg, #1a73e8, #0d47a1); min-height: 100vh; padding: 40px 20px; font-family: 'Arial', sans-serif; color: white;">
+<main class="home-container">
     <!-- Section Principale -->
-    <section class="row" aria-labelledby="reservimoTitle" style="animation: fadeIn 1.5s ease-in;">
-        <h1 id="title" style="font-size: 3.5rem; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-            RESERVIMO
-            <span style="display: block; font-size: 1.8rem; margin-top: 15px; color: #fdd835;">Votre voyage en toute sérénité</span>
+    <section class="hero-section">
+        <h1 class="hero-title">
+            RESIRMO
+            <span class="hero-subtitle">Votre voyage en toute sérénité</span>
         </h1>
-        <p class="lead" style="font-size: 1.4rem; text-align: center; max-width: 800px; margin: 0 auto 40px; line-height: 1.6;">
-            Réservez vos vacances idéales : vols, hôtels et activités en quelques clics
+        <p class="hero-text">
+            Gérez vos agences, administrateurs, gestionnaires et clients facilement.
             <br>
-            <a href="#offres" style="background: #fdd835; color: #0d47a1; padding: 12px 30px; border-radius: 25px; text-decoration: none; margin-top: 20px; display: inline-block; transition: transform 0.3s;"
-               onmouseover="this.style.transform='scale(1.05)'"
-               onmouseout="this.style.transform='scale(1)'">
-                Découvrir nos offres →
-            </a>
+            <a href="#offres" class="cta-button">Découvrir nos services →</a>
         </p>
     </section>
 
     <!-- Services -->
-    <div class="row" style="max-width: 1200px; margin: 50px auto;">
-        <section class="col-md-4" aria-labelledby="volsTitle" style="animation: slideInLeft 1s ease-out; padding: 20px;">
-            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
-                <h2 id="gettingStartedTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">✈ Vols</h2>
-                <p style="line-height: 1.6; margin-bottom: 25px;">
-                    Comparez et réservez vos billets d'avion parmi 500 compagnies aériennes
-                </p>
-                <a class="btn btn-outline-dark"
-                   href="#vols"
-                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
-                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
-                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
-                    Rechercher
-                </a>
-            </div>
+    <div class="services-container">
+        <section class="service-card">
+            <h2>🏢 Agences</h2>
+            <p>Créez et gérez plusieurs agences avec un tableau de bord interactif.</p>
+            @Html.ActionLink("Gérer", "Index", "Agences", null, new { @class = "service-link" })
         </section>
 
-        <section class="col-md-4" aria-labelledby="hotelsTitle" style="animation: slideInUp 1s ease-out; padding: 20px;">
-            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
-                <h2 id="librariesTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">🏨 Hôtels</h2>
-                <p style="line-height: 1.6; margin-bottom: 25px;">
-                    Trouvez l'hébergement parfait parmi 1 million d'établissements dans le monde
-                </p>
-                <a class="btn btn-outline-dark"
-                   href="#hotels"
-                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
-                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
-                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
-                    Explorer
-                </a>
-            </div>
+        <section class="service-card">
+            <h2>👤 Gestionnaires</h2>
+            <p>Attribuez des rôles, suivez les performances et assurez la gestion efficace.</p>
+            @Html.ActionLink("Voir plus", "Index", "Gestionnaires", null, new { @class = "service-link" })
         </section>
 
-        <section class="col-md-4" aria-labelledby="activitesTitle" style="animation: slideInRight 1s ease-out; padding: 20px;">
-            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; height: 100%;">
-                <h2 id="hostingTitle" style="color: #fdd835; font-size: 2rem; margin-bottom: 15px;">🎡 Activités</h2>
-                <p style="line-height: 1.6; margin-bottom: 25px;">
-                    Découvrez 10 000+ activités et excursions uniques dans le monde
-                </p>
-                <a class="btn btn-outline-dark"
-                   href="#activites"
-                   style="border: 2px solid #fdd835; color: #fdd835; padding: 8px 25px; border-radius: 20px; transition: all 0.3s;"
-                   onmouseover="this.style.backgroundColor='#fdd835'; this.style.color='#0d47a1'"
-                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fdd835'">
-                    Découvrir
-                </a>
-            </div>
+        <section class="service-card">
+            <h2>🛠 Administrateurs</h2>
+            <p>Supervisez les activités, modifiez les paramètres et optimisez les opérations.</p>
+            @Html.ActionLink("Superviser", "Index", "Admins", null, new { @class = "service-link" })
+        </section>
+
+        <section class="service-card">
+            <h2>👥 Clients</h2>
+            <p>Facilitez la réservation de voyages et la gestion des clients en toute simplicité.</p>
+            @Html.ActionLink("Explorer", "Index", "Clients", null, new { @class = "service-link" })
         </section>
     </div>
-
-    <style>
-        @@keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @@keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @@keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @@keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 </main>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #1a73e8, #0d47a1);
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .home-container {
+        min-height: 100vh;
+        padding: 40px 20px;
+        text-align: center;
+        animation: fadeIn 1.5s ease-in;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+        display: block;
+        font-size: 1.8rem;
+        margin-top: 10px;
+        color: #fdd835;
+    }
+
+    .hero-text {
+        font-size: 1.4rem;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+    }
+
+    .cta-button {
+        background: #fdd835;
+        color: #0d47a1;
+        padding: 12px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: transform 0.3s;
+        display: inline-block;
+    }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+    .services-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 40px auto;
+    }
+
+    .service-card {
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        padding: 25px;
+        width: 250px;
+        text-align: center;
+        animation: slideInUp 1s ease-out;
+    }
+
+        .service-card h2 {
+            color: #fdd835;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+    .service-link {
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 20px;
+        border: 2px solid #fdd835;
+        color: #fdd835;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+        .service-link:hover {
+            background: #fdd835;
+            color: #0d47a1;
+        }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
