@@ -1,6 +1,6 @@
 ﻿@model PagedList.IPagedList<M1APP.Models.Client>
 @using PagedList.Mvc;
-
+@using M1APP.utils;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +10,7 @@
     <h1>Clients</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item">parametrage</li>
             <li class="breadcrumb-item active"><a href=@Url.Action("Index", "Clients")>Clients</a></li>
         </ol>
@@ -49,7 +49,7 @@
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().NomUtilisateur)</th>
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().PrenomUtilisateur)</th>
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().EmailUtilisateur)</th>
-        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Mot de passe</th>
+        <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().PasswordUtilisateur)</th>
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">@Html.DisplayNameFor(model => model.First().TelUtilisateur)</th>
         <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Actions</th>
     </tr>
@@ -61,7 +61,7 @@
             <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.NomUtilisateur)</td>
             <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.PrenomUtilisateur)</td>
             <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.EmailUtilisateur)</td>
-            <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.PasswordUtilisateur)</td>
+            <td style="padding: 12px; text-align: left;">@(item.PasswordUtilisateur.ToAsterisks())</td>
             <td style="padding: 12px; text-align: left;">@Html.DisplayFor(modelItem => item.TelUtilisateur)</td>
             <td style="padding: 12px; text-align: left;">
                 @Html.ActionLink("Edit", "Edit", new { id = item.IdUtilisateur }, new { @style = "background-color: #2196F3; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;", onmouseover = "this.style.backgroundColor='#1e88e5'", onmouseout = "this.style.backgroundColor='#2196F3'" }) |
