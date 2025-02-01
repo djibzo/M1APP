@@ -61,7 +61,10 @@
                         </li>
                        
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="@Url.Action("LogOff","Account")">
+                            <form action="@Url.Action("LogOff", "Account")" method="post" id="logoutForm" style="display:none;">
+                                @Html.AntiForgeryToken()
+                            </form>
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:document.getElementById('logoutForm').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Deconnexion</span>
                             </a>

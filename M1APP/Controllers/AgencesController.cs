@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
@@ -13,7 +15,7 @@ namespace M1APP.Controllers
     public class AgencesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-        const int pageSize= 10;
+        const int pageSize = 5;
 
         // GET: Agences
         public ActionResult Index(string adresse, string ninea, string rccm, int? page)
@@ -40,8 +42,12 @@ namespace M1APP.Controllers
                 agences = agences.Where(a => a.RccmGestionnaire.ToLower().Contains(rccm.ToLower()));
             }
 
-            // Initialiser la pagination
-            int pageNumber = (page ?? 1);
+            // Vérifier si la liste des agences est vide
+            bool noResults = !agences.Any();
+            ViewBag.NoResults = noResults;
+
+            page = page.HasValue ? page.Value : 1;
+            int pageNumber = (int)page;
 
             // Retourner la vue avec les résultats paginés
             return View(agences.OrderBy(a => a.AdresseAgence).ToPagedList(pageNumber, pageSize));

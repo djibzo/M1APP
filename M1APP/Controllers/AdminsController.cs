@@ -16,25 +16,9 @@ namespace M1APP.Controllers
     public class AdminsController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-        const int pageSize = 10;
+        const int pageSize = 5;
 
         // GET: Admins
-        /*public ActionResult Index(string matricule, int? page)
-         {
-             ViewBag.Adresse = matricule != null ? matricule : string.Empty;
-             var admins = db.Admins.Include(a => a.MatriculeAdmin);
-             var liste = admins.ToList();
-
-             if (!string.IsNullOrEmpty(matricule))
-             {
-                 liste = liste.Where(a => a.MatriculeAdmin.ToLower().Contains(matricule.ToLower())).ToList();
-             }
-
-             page = page.HasValue ? page.Value : 1;
-             int pageNumber = (int)page;
-             return View(liste.ToPagedList(pageNumber, pageSize));
-         }*/
-
         public ActionResult Index(string matricule, int? page)
         {
             // Initialiser les ViewBag pour conserver les valeurs des filtres dans la vue
@@ -50,12 +34,16 @@ namespace M1APP.Controllers
                 admins = admins.Where(a => a.MatriculeAdmin.ToLower().Contains(matricule.ToLower()));
             }
 
-            // Initialiser la pagination
-            int pageNumber = (page ?? 1);
+            // Vérifier si la liste des admin est vide
+            bool noResults = !admins.Any();
+            ViewBag.NoResults = noResults;
+            page = page.HasValue ? page.Value : 1;
+            int pageNumber = (int)page;
 
             // Retourner la vue avec les résultats paginés
             return View(admins.OrderBy(a => a.MatriculeAdmin).ToPagedList(pageNumber, pageSize));
         }
+
 
 
         // GET: Admins/Details/5

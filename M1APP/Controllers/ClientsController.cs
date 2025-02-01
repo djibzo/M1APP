@@ -13,7 +13,7 @@ namespace M1APP.Controllers
     public class ClientsController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-        const int pageSize = 10;
+        const int pageSize = 5;
         // GET: Clients
         public ActionResult Index(string cni, int? page)
         {
@@ -25,7 +25,11 @@ namespace M1APP.Controllers
             {
                 FilteredClients = clients.Where(a => a.CniClient.ToLower().Contains(cni.ToLower()));
             }
-            int pageNumber = (page ?? 1);
+            // Vérifier si la liste des clients est vide
+            bool noResults = !clients.Any();
+            ViewBag.NoResults = noResults;
+            page = page.HasValue ? page.Value : 1;
+            int pageNumber = (int)page;
             return View(FilteredClients.OrderBy(a => a.CniClient).ToPagedList(pageNumber, pageSize));
 
             //return View(db.Clients.ToList());
