@@ -221,6 +221,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\AgencesController.cs" />
+    <Compile Include="Controllers\ClientAjaxController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\GestionnairesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -682,6 +683,7 @@
     <Content Include="assets\vendor\tinymce\package.json" />
     <Content Include="assets\vendor\tinymce\README.md" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\ClientJS.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -746,6 +748,8 @@
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\ClientAjax\Index.cshtml" />
+    <Content Include="Views\ClientAjax\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
