@@ -16,7 +16,7 @@ namespace M1APP.Controllers
     public class GestionnairesController : Controller
     {
         private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
-        const int pageSize = 10;
+        const int pageSize = 5;
 
         // GET: Gestionnaires
         //string cni, int? page
@@ -34,8 +34,12 @@ namespace M1APP.Controllers
                 gestionnaires = gestionnaires.Where(g => g.CNIGestionnaire.ToLower().Contains(cni.ToLower()));
             }
 
-            // Initialiser la pagination
-            int pageNumber = (page ?? 1);
+            // Vérifier si la liste des gestionnaires est vide
+            bool noResults = !gestionnaires.Any();
+            ViewBag.NoResults = noResults; 
+
+            page = page.HasValue ? page.Value : 1;
+            int pageNumber = (int)page;
 
             // Retourner la vue avec les résultats paginés
             return View(gestionnaires.OrderBy(g => g.CNIGestionnaire).ToPagedList(pageNumber, pageSize));
