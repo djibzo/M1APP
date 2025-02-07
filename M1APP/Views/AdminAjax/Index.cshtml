@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des Admins</h2>
+<input type="text" id="searchadminInput" class="form-control" placeholder="Rechercher un admin..." onkeyup="searchadmins()" style="margin-bottom: 20px;">
+<ul id="suggestionsList" class="list-group" style=" width: 100%;"></ul>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminModal" onclick="showAddadminModal()">
+    Ajouter un admin
+</button>
+
+<table class="table" style="width: 100%; border-collapse: collapse; margin-top: 20px; animation: fadeIn 1s ease-in;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Matricule</th>
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Nom</th>
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Prénom</th>
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Email</th>
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Téléphone</th>
+            <th style="padding: 12px; text-align: left; background-color: #2196F3; color: white;">Actions</th>
+        </tr>
+    </thead>
+    <tbody id="adminTableBody">
+        <!-- Les données des admins sont chargee ici par ajax -->
+    </tbody>
+</table>
+
+<!-- Modal pour ajouter un admin -->
+<div class="modal fade" id="addadminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAdminModalLabel">Ajouter un admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="hideAddadminModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addadminForm">
+                    <div class="form-group">
+                        <label for="MatriculeAdmin">Matricule</label>
+                        <input type="text" class="form-control" name="MatriculeAdmin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="NomUtilisateur">Nom</label>
+                        <input type="text" class="form-control" name="NomUtilisateur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PrenomUtilisateur">Prénom</label>
+                        <input type="text" class="form-control" name="PrenomUtilisateur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="EmailUtilisateur">Email</label>
+                        <input type="email" class="form-control" name="EmailUtilisateur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="TelUtilisateur">Téléphone</label>
+                        <input type="text" class="form-control" name="TelUtilisateur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PasswordUtilisateur">Mot de passe</label>
+                        <input type="password" class="form-control" name="PasswordUtilisateur" required>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" onclick="addadmin()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/AdminJs")
+}
