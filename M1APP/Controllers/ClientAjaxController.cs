@@ -87,5 +87,19 @@ namespace M1APP.Controllers
             db.SaveChanges();
             return Json(new { success = true, message = "Client supprimé avec succès." });
         }
+
+
+        public JsonResult Search(string query)
+        {
+            var clients = db.Clients
+                .Where(c => c.CniClient.Contains(query) ||
+                            c.NomUtilisateur.Contains(query) ||
+                            c.PrenomUtilisateur.Contains(query) ||
+                            c.EmailUtilisateur.Contains(query) ||
+                            c.TelUtilisateur.Contains(query))
+                .ToList();
+            return Json(clients, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

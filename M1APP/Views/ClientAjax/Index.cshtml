@@ -4,6 +4,8 @@
 }
 
 <h2>Liste des Clients</h2>
+<input type="text" id="searchClientInput" class="form-control" placeholder="Rechercher un client..." onkeyup="searchClients()" style="margin-bottom: 20px;">
+<ul id="suggestionsList" class="list-group" style=" width: 100%;"></ul>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClientModal" onclick="showAddClientModal()">
     Ajouter un client
@@ -21,7 +23,7 @@
         </tr>
     </thead>
     <tbody id="clientTableBody">
-        <!-- Les données des clients sont insérées ici par ajax -->
+        <!-- Les données des clients sont chargee ici par ajax -->
     </tbody>
 </table>
 
@@ -32,7 +34,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="addClientModalLabel">Ajouter un client</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" onclick="hideAddClientModal()">&times;</span>
                 </button>
             </div>
             <div class="modal-body">

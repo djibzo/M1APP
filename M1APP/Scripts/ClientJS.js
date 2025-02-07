@@ -2,6 +2,8 @@
     console.log("ClientJS.js loaded");
 
     loadClients();
+
+ 
 });
 
 function loadClients() {
@@ -153,7 +155,85 @@ function deleteClient(id) {
     }
 }
 
-// Fonction pour afficher le modal d'ajout de client
+// Fonction pour foecer l'affiage  du  modal d'ajout de client
 function showAddClientModal() {
     $('#addClientModal').modal('show');
+}
+
+//vonction pour forcer la fermeture du modal d'ajout de client
+function hideAddClientModal() {
+    $('#addClientModal').modal('hide');
+    }
+
+
+function searchClients() {
+    var query = $('#searchClientInput').val();
+    if (query.length > 2) {
+        $.ajax({
+            url: '/ClientAjax/Search',
+            type: 'GET',
+            data: { query: query },
+            dataType: 'json',
+            success: function (data) {
+                $('#suggestionsList').empty();
+                if (data.length > 0) {
+                    $.each(data, function (index, client) {
+                        $('#suggestionsList').append(
+                            '<li class="list-group-item list-group-item-action" onclick="selectClient(\'' + client.CniClient + '\')">' +
+                            client.CniClient + ' - ' + client.NomUtilisateur + ' ' + client.PrenomUtilisateur +
+                            '</li>'
+                        );
+                    });
+                } else {
+                    $('#suggestionsList').append('<li class="list-group-item">Aucun client trouvé.</li>');
+                }
+            },
+            error: function () {
+                $('#suggestionsList').empty();
+                $('#suggestionsList').append('<li class="list-group-item">Erreur lors de la recherche.</li>');
+            }
+        });
+    } else {
+        $('#suggestionsList').empty();
+        // Recharger la liste complète des clients si le champ de recherche est vide
+        loadClients(); 
+    }
+}
+
+function selectClient(cniClient) {
+    $('#searchClientInput').val(cniClient);
+    $('#suggestionsList').empty();
+
+    $.ajax({
+        url: '/ClientAjax/Search',
+        type: 'GET',
+        data: { query: cniClient },
+        dataType: 'json',
+        success: function (data) {
+            $('#clientTableBody').empty(); // Vider le corps du tableau avant de le remplir
+
+            if (data.length === 0) {
+                $('#clientTableBody').append('<tr><td colspan="6" style="text-align: center; padding: 12px; color: red;">Aucun client trouvé.</td></tr>');
+            } else {
+                $.each(data, function (index, client) {
+                    $('#clientTableBody').append(
+                        '<tr style="border-bottom: 1px solid #ddd; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor=\'#f9f9f9\'" onmouseout="this.style.backgroundColor=\'white\'">' +
+                        '<td style="padding: 12px; text-align: left;">' + client.CniClient + '</td>' +
+                        '<td style="padding: 12px; text-align: left;">' + client.NomUtilisateur + '</td>' +
+                        '<td style="padding: 12px; text-align: left;">' + client.PrenomUtilisateur + '</td>' +
+                        '<td style="padding: 12px; text-align: left;">' + client.EmailUtilisateur + '</td>' +
+                        '<td style="padding: 12px; text-align: left;">' + client.TelUtilisateur + '</td>' +
+                        '<td style="padding: 12px; text-align: left;">' +
+                        '<a href="#" onclick="editClient(' + client.IdUtilisateur + ')" style="background-color: #2196F3; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor=\'#1e88e5\'" onmouseout="this.style.backgroundColor=\'#2196F3\'">Edit</a> | ' +
+                        '<a href="#" onclick="deleteClient(' + client.IdUtilisateur + ')" style="background-color: #f44336; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor=\'#e53935\'" onmouseout="this.style.backgroundColor=\'#f44336\'">Delete</a>' +
+                        '</td>' +
+                        '</tr>'
+                    );
+                });
+            }
+        },
+        error: function () {
+            alert('Erreur lors de la récupération des données des clients.');
+        }
+    });
 }
