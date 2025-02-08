@@ -571,6 +571,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <EmbeddedResource Include="Ressources\Strings.es-ES.resx" />
+    <EmbeddedResource Include="Ressources\Strings.fr-FR.resx" />
+    <EmbeddedResource Include="Ressources\Strings.resx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
