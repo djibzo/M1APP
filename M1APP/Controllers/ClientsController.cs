@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
+using M1APP.utils;
 using PagedList;
 namespace M1APP.Controllers
 {
@@ -63,10 +64,13 @@ namespace M1APP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
         {
+            GMailer gmailler = new GMailer();
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
                 db.SaveChanges();
+                gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur +" "+ client.NomUtilisateur} , votre inscription à été bien enregistrée");
+                WassengerClient.SendWhatsAppMessage(client.TelUtilisateur, $"Hello, bienvenue dans Reservimo {client.PrenomUtilisateur + " " + client.NomUtilisateur} , votre inscription s'est déroulée avec success !");
                 return RedirectToAction("Index");
             }
 
