@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
@@ -62,7 +63,7 @@ namespace M1APP.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
+        public async Task<ActionResult> CreateAsync([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
         {
             GMailer gmailler = new GMailer();
             if (ModelState.IsValid)
@@ -70,7 +71,7 @@ namespace M1APP.Controllers
                 db.Clients.Add(client);
                 db.SaveChanges();
                 gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur +" "+ client.NomUtilisateur} , votre inscription à été bien enregistrée");
-                WassengerClient.SendWhatsAppMessage(client.TelUtilisateur, $"Hello, bienvenue dans Reservimo {client.PrenomUtilisateur + " " + client.NomUtilisateur} , votre inscription s'est déroulée avec success !");
+                await TwilioWhatsAppClient.SendWhatsAppMessage("+221772133001", "Hello, ceci est un test via Twilio WhatsApp !");
                 return RedirectToAction("Index");
             }
 
