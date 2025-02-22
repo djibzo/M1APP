@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using M1APP.Models;
 using M1APP.utils;
 using PagedList;
+using RestSharp;
 namespace M1APP.Controllers
 {
     public class ClientsController : Controller
@@ -71,13 +72,13 @@ namespace M1APP.Controllers
                 db.Clients.Add(client);
                 db.SaveChanges();
                 gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur +" "+ client.NomUtilisateur} , votre inscription à été bien enregistrée");
-                await TwilioWhatsAppClient.SendWhatsAppMessage("+221772133001", "Hello, ceci est un test via Twilio WhatsApp !");
+                WassengerClient wassengerClient = new WassengerClient();
+                wassengerClient.sendMessage(client.TelUtilisateur, $"Hello, bienvenue dans Reservimo {client.PrenomUtilisateur + " " + client.NomUtilisateur} votre inscription s'est deroulée avec success !");
                 return RedirectToAction("Index");
-            }
+            }   
 
             return View(client);
         }
-
         // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -108,6 +109,7 @@ namespace M1APP.Controllers
             }
             return View(client);
         }
+  
 
         // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
