@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using RestSharp;
 
 public class WassengerClient
@@ -18,14 +14,23 @@ public class WassengerClient
     /// <returns></returns>
     public bool sendMessage(string numero,string message)
     {
-        var client2 = new RestClient(apiUrl);
-        var request = new RestRequest("", Method.Post);
-        request.AddHeader("Content-Type", "application/json");
-        request.AddHeader("Token", token);
-        request.AddParameter("application/json",
-            $"{{\"phone\":\"{numero}\",\"message\":\"{message}\"}}",
-            ParameterType.RequestBody);
-        RestResponse response = client2.Execute(request);
-        return response.IsSuccessStatusCode;
+        try
+        {
+            var client = new RestClient(apiUrl);
+            var request = new RestRequest("", Method.Post);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Token", token);
+            request.AddParameter("application/json",
+                $"{{\"phone\":\"{numero}\",\"message\":\"{message}\"}}",
+                ParameterType.RequestBody);
+            RestResponse response = client.Execute(request);
+            return response.IsSuccessStatusCode;
+        }
+        catch(System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return false;
+        }
+        
     }
 }

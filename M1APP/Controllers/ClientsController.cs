@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
-using M1APP.utils;
 using PagedList;
-using RestSharp;
 namespace M1APP.Controllers
 {
     public class ClientsController : Controller
@@ -64,18 +59,18 @@ namespace M1APP.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
+        public ActionResult Create([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
         {
             GMailer gmailler = new GMailer();
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
                 db.SaveChanges();
-                gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur +" "+ client.NomUtilisateur} , votre inscription à été bien enregistrée");
+                gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur + " " + client.NomUtilisateur} , votre inscription à été bien enregistrée");
                 WassengerClient wassengerClient = new WassengerClient();
                 wassengerClient.sendMessage(client.TelUtilisateur, $"Hello, bienvenue dans Reservimo {client.PrenomUtilisateur + " " + client.NomUtilisateur} votre inscription s'est deroulée avec success !");
                 return RedirectToAction("Index");
-            }   
+            }
 
             return View(client);
         }
