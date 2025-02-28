@@ -21,7 +21,7 @@ namespace M1APP.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("connAgenceVoyage", throwIfV1Schema: false)
         {
         }
 
