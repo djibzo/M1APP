@@ -46,6 +46,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="EntityFramework6.Npgsql, Version=6.4.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework6.Npgsql.6.4.3\lib\net461\EntityFramework6.Npgsql.dll</HintPath>
     </Reference>
@@ -266,10 +282,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202503010016182_InitialCreate.cs" />
+    <Compile Include="Migrations\202503010016182_InitialCreate.Designer.cs">
+      <DependentUpon>202503010016182_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202503010146057_UpdateIdentityContext.cs" />
+    <Compile Include="Migrations\202503010146057_UpdateIdentityContext.Designer.cs">
+      <DependentUpon>202503010146057_UpdateIdentityContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Agence.cs" />
+    <Compile Include="Models\AgenceReportViewModel.cs" />
     <Compile Include="Models\Annonce.cs" />
     <Compile Include="Models\App_LocalResources\RessourceFr.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -797,9 +822,11 @@
     <Content Include="Views\ClientAjax\Create.cshtml" />
     <Content Include="Views\AdminAjax\Create.cshtml" />
     <Content Include="Views\AdminAjax\Index.cshtml" />
+    <Content Include="Views\Agences\AgenceReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Report\" />
     <Folder Include="Views\Agence\" />
   </ItemGroup>
   <ItemGroup>
@@ -925,10 +952,18 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\App_LocalResources\RessourceFr.resx">
+    <EmbeddedResource Include="Models\App_LocalResources\RessourceFr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RessourceFr.Designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202503010016182_InitialCreate.resx">
+      <DependentUpon>202503010016182_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503010146057_UpdateIdentityContext.resx">
+      <DependentUpon>202503010146057_UpdateIdentityContext.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

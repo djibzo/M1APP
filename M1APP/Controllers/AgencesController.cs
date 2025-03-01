@@ -160,5 +160,19 @@ namespace M1APP.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult AgenceReport()
+        {
+            var reportData = db.agences.Select(a => new AgenceReportViewModel
+            {
+                AdresseAgence = a.AdresseAgence,
+                Longitude = a.Longitude,
+                Latitude = a.Latitude,
+                NineaGestionnaire = a.NineaGestionnaire
+             
+            }).ToList();
+
+            return View(reportData);
+        }
     }
 }
