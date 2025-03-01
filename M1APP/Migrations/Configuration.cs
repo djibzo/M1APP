@@ -1,5 +1,8 @@
 ﻿namespace M1APP.Migrations
 {
+    using M1APP.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -19,6 +22,31 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if (!roleManager.RoleExists("Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+
+                var user = new ApplicationUser();
+                user.UserName = "admin";
+                user.Email = "admin@example.com";
+
+                string userPassword = "Password@123";
+                var chkUser = userManager.Create(user, userPassword);
+
+                if (chkUser.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "Admin");
+                }
+            }
         }
+
+       
+
     }
 }

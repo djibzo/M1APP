@@ -18,6 +18,12 @@ namespace M1APP
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            //route pour le rapport des agences
+            routes.MapRoute(
+         name: "AgenceReport",
+         url: "agences/agencereport",
+         defaults: new { controller = "Agences", action = "AgenceReport" }
+     );
         }
     }
 }

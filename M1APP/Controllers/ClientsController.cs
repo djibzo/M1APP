@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using M1APP.Models;
 using PagedList;
@@ -63,16 +61,19 @@ namespace M1APP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdUtilisateur,CniClient,NomUtilisateur,PrenomUtilisateur,EmailUtilisateur,PasswordUtilisateur,TelUtilisateur")] Client client)
         {
+            GMailer gmailler = new GMailer();
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
                 db.SaveChanges();
+                gmailler.SendEmail(client.EmailUtilisateur, "Inscription avec success !", $"Bonjour {client.PrenomUtilisateur + " " + client.NomUtilisateur} , votre inscription à été bien enregistrée");
+                WassengerClient wassengerClient = new WassengerClient();
+                wassengerClient.sendMessage(client.TelUtilisateur, $"Hello, bienvenue dans Reservimo {client.PrenomUtilisateur + " " + client.NomUtilisateur} votre inscription s'est deroulée avec success !");
                 return RedirectToAction("Index");
             }
 
             return View(client);
         }
-
         // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -103,6 +104,7 @@ namespace M1APP.Controllers
             }
             return View(client);
         }
+  
 
         // GET: Clients/Delete/5
         public ActionResult Delete(int? id)

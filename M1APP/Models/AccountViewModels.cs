@@ -49,7 +49,7 @@ namespace M1APP.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Identifiant")]
         [EmailAddress]
         public string Email { get; set; }
 
