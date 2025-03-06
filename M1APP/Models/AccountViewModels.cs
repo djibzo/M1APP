@@ -69,16 +69,27 @@ namespace M1APP.Models
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} doit contenir au moins {2} caractères.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Mot de passe")]
-        public string Password { get; set; }
+        [Display(Name = "CNI"), Required(ErrorMessage = "*"), MaxLength(20)]
+        public string CniClient { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmer le mot de passe")]
-        [Compare("Password", ErrorMessage = "Le nouveau mot de passe et le mot de passe de confirmation ne correspondent pas.")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "Nom"), Required(ErrorMessage = "*"), MaxLength(80)]
+        public string NomUtilisateur { get; set; }
+        [Display(Name = "Prenom"), Required(ErrorMessage = "*"), MaxLength(80)]
+        public string PrenomUtilisateur { get; set; }
+
+        [Display(Name = "Telephone"), Required(ErrorMessage = "*"), MaxLength(20)]
+        public string TelUtilisateur { get; set; }
+
+        //[Required]
+        //[StringLength(100, ErrorMessage = "{0} doit contenir au moins {2} caractères.", MinimumLength = 6)]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Mot de passe")]
+        //public string Password { get; set; }
+
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirmer le mot de passe")]
+        //[Compare("Password", ErrorMessage = "Le nouveau mot de passe et le mot de passe de confirmation ne correspondent pas.")]
+        //public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

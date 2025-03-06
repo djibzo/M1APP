@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using M1APP.Models;
+using System.EnterpriseServices.CompensatingResourceManager;
+using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace M1APP.Controllers
 {
@@ -17,6 +20,7 @@ namespace M1APP.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private BdAgenceVoyageContext db = new BdAgenceVoyageContext();
 
         public AccountController()
         {
@@ -147,16 +151,26 @@ namespace M1APP.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    Client client = new Client();
+                    client.CniClient = model.CniClient;
+                    client.NomUtilisateur = model.NomUtilisateur;
+                    client.PrenomUtilisateur=model.PrenomUtilisateur;
+                    client.EmailUtilisateur = model.Email;
+                    client.TelUtilisateur = model.TelUtilisateur;
+                    client.idUserOwin = user.Id;
+                    UserManager.AddToRole(user.Id, "Client");
+                    db.Clients.Add(client);
+                    db.SaveChanges();
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un e-mail avec ce lien
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
