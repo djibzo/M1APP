@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using APITrip.Entities;
-    public class CreateRequest
+    public class FlotteCreateRequest
     {
         [Required]
         public required string TypeFlotte { get; set; }

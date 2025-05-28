@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APITrip.models.Clients
 {
-    public class UpdateRequest
+    public class ClientUpdateRequest
     {
         [Required]
         public int Id { get; set; }

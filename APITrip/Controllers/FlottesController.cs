@@ -36,14 +36,14 @@ namespace APITrip.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateRequest model)
+        public IActionResult Create([FromBody] FlotteCreateRequest model)
         {
             _flotteService.Create(model);
             return Ok(new { message = "Flotte created" });
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, UpdateRequest model)
+        public IActionResult Update(int id, [FromBody] FlotteUpdateRequest model)
         {
             _flotteService.Update(id, model);
             return Ok(new { message = "Flotte updated" });

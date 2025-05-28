@@ -2,10 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using APITrip.Entities;
-    public class UpdateRequest
+    public class FlotteUpdateRequest
     {
         [Required]
-        public required int IdFlotte { get; set; }
+        public int IdFlotte { get; set; }
         [Required]
         public required string TypeFlotte { get; set; }
         [Required]

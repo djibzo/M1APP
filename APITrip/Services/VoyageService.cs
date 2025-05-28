@@ -4,32 +4,34 @@ using System.Collections.Generic;
 
 namespace APITrip.Services
 {
-    public class VoyageService
+    public interface IVoyageService
     {
-        // Suppression de la liste en mémoire, passage à une logique orientée base de données comme FlotteService
+        IEnumerable<Voyage> GetAll();
+        Voyage GetById(int id);
+        void Create(VoyageCreateRequest model);
+        void Update(int id, VoyageUpdateRequest model);
+        void Delete(int id);
+    }
+    public class VoyageService : IVoyageService
+    {
         public IEnumerable<Voyage> GetAll()
         {
-            // À remplacer par l'accès à la base de données (exemple : return _context.Voyages;)
             throw new NotImplementedException();
         }
         public Voyage GetById(int id)
         {
-            // À remplacer par l'accès à la base de données (exemple : return _context.Voyages.Find(id);)
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(VoyageCreateRequest model)
         {
-            // À remplacer par la logique de création en base de données
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, VoyageUpdateRequest model)
         {
-            // À remplacer par la logique de mise à jour en base de données
             throw new NotImplementedException();
         }
         public void Delete(int id)
         {
-            // À remplacer par la logique de suppression en base de données
             throw new NotImplementedException();
         }
     }

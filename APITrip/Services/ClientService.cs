@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Client> GetAll();
         Client GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(ClientCreateRequest model);
+        void Update(int id, ClientUpdateRequest model);
         void Delete(int id);
     }
     public class ClientService : IClientService
@@ -22,11 +22,11 @@ namespace APITrip.Services
         {
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(ClientCreateRequest model)
         {
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, ClientUpdateRequest model)
         {
             throw new NotImplementedException();
         }

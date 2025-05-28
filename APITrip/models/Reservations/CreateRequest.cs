@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APITrip.models.Reservations
 {
-    public class CreateRequest
+    public class ReservationCreateRequest
     {
         [Required]
         public DateTime DateReservation { get; set; }
