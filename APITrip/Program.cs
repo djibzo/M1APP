@@ -19,6 +19,12 @@ JsonIgnoreCondition.WhenWritingNull;
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // configure DI for application services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAgenceService, AgenceService>();
+builder.Services.AddScoped<IChauffeurService, ChauffeurService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IGestionnaireService, GestionnaireService>();
+builder.Services.AddScoped<IOffreService, OffreService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

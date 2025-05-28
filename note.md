@@ -48,3 +48,25 @@ Cette architecture est particulièrement adaptée aux applications complexes où
 ## Conclusion
 
 Les concepts abordés aujourd'hui sont essentiels pour structurer une application backend robuste et maintenable. L'architecture en couche est idéale pour les API, tandis que l'architecture Onion offre une flexibilité accrue pour les applications centrées sur le domaine.
+
+# Compte rendu du 28 mai 2025
+
+## Ce que nous avons fait aujourd'hui
+
+- Création de dossiers pour chaque entité métier (Agence, Chauffeur, Client, Gestionnaire, Offre, Reservation, Voyage) dans le dossier `models`.
+- Génération pour chaque entité de deux classes : `CreateRequest` et `UpdateRequest` pour structurer les données de création et de mise à jour.
+- Création d'un service pour chaque entité dans le dossier `Services` : chaque service expose une interface (ex : `IAgenceService`) et des méthodes prêtes à être connectées à la base de données.
+- Refactorisation des services pour supprimer la gestion en mémoire (List<T>) et préparer l'intégration avec Entity Framework ou tout autre ORM.
+- Création des contrôleurs pour chaque entité, en suivant le modèle de bonnes pratiques (injection de dépendances, gestion des erreurs, structure claire des méthodes CRUD).
+- Ajout de l'enregistrement de tous les services dans le conteneur d'injection de dépendances dans `Program.cs` pour permettre leur utilisation dans les contrôleurs.
+- Correction de l'intégration Swagger et résolution d'une erreur 500 liée à l'injection de dépendances.
+
+## Explications
+
+- **Structuration du projet** : chaque entité a son propre dossier, ses modèles de requête et son service, ce qui rend le code plus lisible, maintenable et évolutif.
+- **Services** : ils centralisent la logique métier et facilitent la réutilisation et les tests.
+- **Contrôleurs** : ils exposent les endpoints de l'API et délèguent la logique métier aux services.
+- **Injection de dépendances** : elle permet de découpler les contrôleurs des implémentations concrètes des services, rendant le code plus flexible et testable.
+- **Swagger** : il permet de documenter et de tester facilement l'API.
+
+Cette organisation respecte l'architecture en couche, idéale pour un backend API, et prépare le projet à une évolution vers une architecture plus avancée comme Onion si besoin.
