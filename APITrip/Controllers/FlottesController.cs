@@ -1,4 +1,5 @@
-﻿using APITrip.models.Flotte;
+﻿using APITrip.Entities;
+using APITrip.models.Flotte;
 using APITrip.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -39,7 +40,7 @@ namespace APITrip.Controllers
         public IActionResult Create([FromBody] FlotteCreateRequest model)
         {
             _flotteService.Create(model);
-            return Ok(new { message = "Flotte created" });
+            return Created("", new { message = "Flotte created"});
         }
 
         [HttpPut("{id}")]

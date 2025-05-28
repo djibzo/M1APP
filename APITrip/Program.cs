@@ -29,6 +29,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IGestionnaireService, GestionnaireService>();
 builder.Services.AddScoped<IOffreService, OffreService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IFlotteService, FlotteService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

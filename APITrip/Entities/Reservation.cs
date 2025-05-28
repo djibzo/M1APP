@@ -13,8 +13,10 @@ namespace APITrip.Entities
         public float MontantReservation { get; set; }
         [Display(Name = "Statut"), Required(ErrorMessage = "*")]
         public string StatutReservation { get; set; }
+        
+        public int ClientId { get; set; }
 
-        [ForeignKey("Client")]
+        [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }
     }
 }

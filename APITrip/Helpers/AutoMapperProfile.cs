@@ -2,6 +2,7 @@
 using AutoMapper;
 using APITrip.Entities;
 using APITrip.models.users;
+using APITrip.models.Flotte;
 
 namespace APITrip.Helpers
 {
@@ -26,6 +27,7 @@ namespace APITrip.Helpers
                 return true;
             }
             ));
+            CreateMap<FlotteCreateRequest, Flotte>();
         }
     }
 }
