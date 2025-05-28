@@ -16,5 +16,6 @@ namespace APITrip.Helpers
             options.UseInMemoryDatabase("TestDb");
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Flotte> Flottes { get; set; }
     }
 }
