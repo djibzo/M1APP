@@ -1,13 +1,17 @@
 using APITrip.Entities;
 using APITrip.Helpers;
 using APITrip.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TestDb")));
+
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
 // serialize enums as strings in api responses (e.g. Role)

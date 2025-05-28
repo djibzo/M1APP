@@ -13,8 +13,13 @@ namespace APITrip.Helpers
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseInMemoryDatabase("TestDb");
+            if (!options.IsConfigured)
+            {
+                var connectionString = Configuration.GetConnectionString("TestDb");
+                options.UseNpgsql(connectionString);
+            }
         }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Flotte> Flottes { get; set; }
     }
