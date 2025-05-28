@@ -14,11 +14,14 @@ namespace M1APP.Models
         [Display(Name = "Email"), Required(ErrorMessage = "*"), MaxLength(80)]
         public string EmailUtilisateur { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Password"), Required(ErrorMessage = "*"), MaxLength(255)]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Password"), Required(ErrorMessage = "*"), MaxLength(255)]
         public string PasswordUtilisateur { get; set; }
 
         [Display(Name = "Telephone"), Required(ErrorMessage = "*"), MaxLength(20)]
         public string TelUtilisateur { get; set; }
+
+        [MaxLength(200)]
+        public string idUserOwin { get; set; }
     }
 }
