@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APITrip.models.Clients
 {
-    public class CreateRequest
+    public class ClientCreateRequest
     {
         [Required]
         public string CniClient { get; set; }

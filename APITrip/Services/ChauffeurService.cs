@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Chauffeur> GetAll();
         Chauffeur GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(ChauffeurCreateRequest model);
+        void Update(int id, ChauffeurUpdateRequest model);
         void Delete(int id);
     }
     public class ChauffeurService : IChauffeurService
@@ -24,12 +24,12 @@ namespace APITrip.Services
             // À remplacer par l'accès à la base de données (exemple : return _context.Chauffeurs.Find(id);)
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(ChauffeurCreateRequest model)
         {
             // À remplacer par la logique de création en base de données
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, ChauffeurUpdateRequest model)
         {
             // À remplacer par la logique de mise à jour en base de données
             throw new NotImplementedException();

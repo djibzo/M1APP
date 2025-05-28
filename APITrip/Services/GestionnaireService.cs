@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Gestionnaire> GetAll();
         Gestionnaire GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(GestionnaireCreateRequest model);
+        void Update(int id, GestionnaireUpdateRequest model);
         void Delete(int id);
     }
     public class GestionnaireService : IGestionnaireService
@@ -22,11 +22,11 @@ namespace APITrip.Services
         {
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(GestionnaireCreateRequest model)
         {
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, GestionnaireUpdateRequest model)
         {
             throw new NotImplementedException();
         }

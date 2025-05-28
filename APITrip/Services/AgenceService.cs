@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Agence> GetAll();
         Agence GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(AgenceCreateRequest model);
+        void Update(int id, AgenceUpdateRequest model);
         void Delete(int id);
     }
     public class AgenceService : IAgenceService
@@ -22,11 +22,11 @@ namespace APITrip.Services
         {
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(AgenceCreateRequest model)
         {
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, AgenceUpdateRequest model)
         {
             throw new NotImplementedException();
         }

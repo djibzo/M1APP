@@ -31,14 +31,13 @@ namespace APITrip.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateRequest model)
+        public IActionResult Create([FromBody] AgenceCreateRequest model)
         {
             _agenceService.Create(model);
             return Ok(new { message = "Agence created" });
         }
-
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] UpdateRequest model)
+        public IActionResult Update(int id, [FromBody] AgenceUpdateRequest model)
         {
             _agenceService.Update(id, model);
             return Ok(new { message = "Agence updated" });

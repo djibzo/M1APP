@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Offre> GetAll();
         Offre GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(OffreCreateRequest model);
+        void Update(int id, OffreUpdateRequest model);
         void Delete(int id);
     }
     public class OffreService : IOffreService
@@ -22,11 +22,11 @@ namespace APITrip.Services
         {
             throw new System.NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(OffreCreateRequest model)
         {
             throw new System.NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, OffreUpdateRequest model)
         {
             throw new System.NotImplementedException();
         }

@@ -11,8 +11,8 @@ namespace APITrip.Services
     {
         IEnumerable<Flotte> GetAll();
         Flotte GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(FlotteCreateRequest model);
+        void Update(int id, FlotteUpdateRequest model);
         void Delete(int id);
     }
 
@@ -37,7 +37,7 @@ namespace APITrip.Services
             return getFlotte(id);
         }
 
-        public void Create(CreateRequest model)
+        public void Create(FlotteCreateRequest model)
         {
             if (_context.Flottes.Any(x => x.MatriculeFlotte == model.MatriculeFlotte))
                 throw new AppException("Flotte with the matricule '" + model.MatriculeFlotte + "' already exists");
@@ -47,7 +47,7 @@ namespace APITrip.Services
             _context.SaveChanges();
         }
 
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, FlotteUpdateRequest model)
         {
             var flotte = getFlotte(id);
 

@@ -8,8 +8,8 @@ namespace APITrip.Services
     {
         IEnumerable<Reservation> GetAll();
         Reservation GetById(int id);
-        void Create(CreateRequest model);
-        void Update(int id, UpdateRequest model);
+        void Create(ReservationCreateRequest model);
+        void Update(int id, ReservationUpdateRequest model);
         void Delete(int id);
     }
     public class ReservationService : IReservationService
@@ -22,11 +22,11 @@ namespace APITrip.Services
         {
             throw new NotImplementedException();
         }
-        public void Create(CreateRequest model)
+        public void Create(ReservationCreateRequest model)
         {
             throw new NotImplementedException();
         }
-        public void Update(int id, UpdateRequest model)
+        public void Update(int id, ReservationUpdateRequest model)
         {
             throw new NotImplementedException();
         }

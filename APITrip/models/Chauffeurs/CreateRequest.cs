@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APITrip.models.Chauffeurs
 {
-    public class CreateRequest
+    public class ChauffeurCreateRequest
     {
         [Required]
         public string Nom { get; set; }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APITrip.models.Voyages
 {
-    public class CreateRequest
+    public class VoyageCreateRequest
     {
         [Required]
         public string Destination { get; set; }
