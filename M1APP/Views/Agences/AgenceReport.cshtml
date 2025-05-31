@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<M1APP.Models.AgenceReportViewModel>
+
+@{
+    ViewBag.Title = "Reporting des Agences";
+}
+
+<h2>Reporting des Agences</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>AdresseAgence</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>NineaGestionnaire</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AdresseAgence</td>
+                <td>@item.Longitude</td>
+                <td>@item.Latitude</td>
+                <td>@item.NineaGestionnaire</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

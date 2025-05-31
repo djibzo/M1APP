@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using M1APP.Models;
+using Microsoft.SqlServer.Server;
 using PagedList;
+using Twilio.TwiML.Voice;
 namespace M1APP.Controllers
 {
     public class AgencesController : Controller
@@ -159,6 +162,55 @@ namespace M1APP.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+<<<<<<< HEAD
+
+        public ActionResult AgenceReport()
+        {
+            var reportData = db.agences.Select(a => new AgenceReportViewModel
+            {
+                AdresseAgence = a.AdresseAgence,
+                Longitude = a.Longitude,
+                Latitude = a.Latitude,
+                NineaGestionnaire = a.NineaGestionnaire
+             
+            }).ToList();
+
+            return View(reportData);
+=======
+        public DataTable GetTableAgence()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("AdresseAgence", typeof(string));
+            table.Columns.Add("Longitude", typeof(float));
+            table.Columns.Add("Latitude", typeof(float));
+            table.Columns.Add("NineaGestionnaire", typeof(string));
+            table.Columns.Add("RccmGestionnaire", typeof(string));
+            var liste = db.agences.ToList();
+            foreach (var agence in liste)
+            {
+                table.Rows.Add(agence.AdresseAgence,agence.Longitude,agence.Latitude,agence.NineaGestionnaire,agence.RccmGestionnaire);
+            }
+           
+            return table;
+        }
+        public ActionResult ReportListAgence()
+        {
+            CrystalDecisions.CrystalReports.Engine.ReportDocument  Rpt= new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+            try
+            {
+                Rpt.Load(Server.MapPath("~/Report/rptListAgence.rpt"));
+                Rpt.SetDataSource(GetTableAgence());
+                System.IO.Stream stream = Rpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                Response.AppendHeader("Content-Disposition", "inline");
+                return File(stream, "application/pdf");
+            }
+            finally
+            {
+                Rpt.Dispose();
+                Rpt.Close();
+            }
+>>>>>>> a26bd35877e5a441f832999df6909499765c7e8b
         }
     }
 }

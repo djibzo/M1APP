@@ -46,9 +46,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+=======
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+>>>>>>> a26bd35877e5a441f832999df6909499765c7e8b
     <Reference Include="EntityFramework6.Npgsql, Version=6.4.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework6.Npgsql.6.4.3\lib\net461\EntityFramework6.Npgsql.dll</HintPath>
     </Reference>
@@ -269,10 +291,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Migrations\202503010016182_InitialCreate.cs" />
+    <Compile Include="Migrations\202503010016182_InitialCreate.Designer.cs">
+      <DependentUpon>202503010016182_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202503010146057_UpdateIdentityContext.cs" />
+    <Compile Include="Migrations\202503010146057_UpdateIdentityContext.Designer.cs">
+      <DependentUpon>202503010146057_UpdateIdentityContext.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\202505161314563_premier.cs" />
+    <Compile Include="Migrations\202505161314563_premier.Designer.cs">
+      <DependentUpon>202505161314563_premier.cs</DependentUpon>
+>>>>>>> a26bd35877e5a441f832999df6909499765c7e8b
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Agence.cs" />
+    <Compile Include="Models\AgenceReportViewModel.cs" />
     <Compile Include="Models\Annonce.cs" />
     <Compile Include="Models\App_LocalResources\RessourceFr.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -625,6 +662,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <EmbeddedResource Include="Ressources\Strings.es-ES.resx" />
+    <EmbeddedResource Include="Ressources\Strings.fr-FR.resx" />
+    <EmbeddedResource Include="Ressources\Strings.resx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -807,9 +847,11 @@
     <Content Include="Views\ClientAjax\Create.cshtml" />
     <Content Include="Views\AdminAjax\Create.cshtml" />
     <Content Include="Views\AdminAjax\Index.cshtml" />
+    <Content Include="Views\Agences\AgenceReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Report\" />
     <Folder Include="Views\Agence\" />
   </ItemGroup>
   <ItemGroup>
@@ -936,12 +978,23 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\App_LocalResources\RessourceFr.resx">
+    <EmbeddedResource Include="Models\App_LocalResources\RessourceFr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RessourceFr.Designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\202503010016182_InitialCreate.resx">
+      <DependentUpon>202503010016182_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503010146057_UpdateIdentityContext.resx">
+      <DependentUpon>202503010146057_UpdateIdentityContext.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202505161314563_premier.resx">
+      <DependentUpon>202505161314563_premier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\rptListAgence.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptListAgence.cs</LastGenOutput>
