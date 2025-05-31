@@ -412,6 +412,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="CrystalReportViewerPage.aspx.cs">
       <DependentUpon>CrystalReportViewerPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CrystalReportViewerPage.aspx.designer.cs">
       <DependentUpon>CrystalReportViewerPage.aspx</DependentUpon>
