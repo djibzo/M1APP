@@ -35,7 +35,7 @@ namespace APITrip.Controllers
         public IActionResult Create(CreateRequest model)
         {
             _userService.Create(model);
-            return Ok(new { message = "User created" });
+            return Created("", new { message = "User created" });
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdateRequest model)

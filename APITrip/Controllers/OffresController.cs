@@ -14,7 +14,7 @@ namespace APITrip.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id) => Ok(_service.GetById(id));
         [HttpPost]
-        public IActionResult Create([FromBody] OffreCreateRequest model) { _service.Create(model); return Ok(new { message = "Offre created" }); }
+        public IActionResult Create([FromBody] OffreCreateRequest model) { _service.Create(model); return Created("", new { message = "Offre created" }); }
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] OffreUpdateRequest model) { _service.Update(id, model); return Ok(new { message = "Offre updated" }); }
         [HttpDelete("{id}")]

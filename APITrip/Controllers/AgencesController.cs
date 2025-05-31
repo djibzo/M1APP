@@ -34,7 +34,7 @@ namespace APITrip.Controllers
         public IActionResult Create([FromBody] AgenceCreateRequest model)
         {
             _agenceService.Create(model);
-            return Ok(new { message = "Agence created" });
+            return Created("", new { message = "Agence created" });
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] AgenceUpdateRequest model)

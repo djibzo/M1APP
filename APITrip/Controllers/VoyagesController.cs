@@ -14,7 +14,7 @@ namespace APITrip.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id) => Ok(_service.GetById(id));
         [HttpPost]
-        public IActionResult Create([FromBody] VoyageCreateRequest model) { _service.Create(model); return Ok(new { message = "Voyage created" }); }
+        public IActionResult Create([FromBody] VoyageCreateRequest model) { _service.Create(model); return Created("", new { message = "Voyage created" }); }
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] VoyageUpdateRequest model) { _service.Update(id, model); return Ok(new { message = "Voyage updated" }); }
         [HttpDelete("{id}")]

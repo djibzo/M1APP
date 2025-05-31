@@ -3,6 +3,12 @@ using AutoMapper;
 using APITrip.Entities;
 using APITrip.models.users;
 using APITrip.models.Flotte;
+using APITrip.models.Voyages;
+using APITrip.models.Chauffeurs;
+using APITrip.models.Gestionnaires;
+using APITrip.models.Offres;
+using APITrip.models.Reservations;
+using APITrip.models.Clients;
 
 namespace APITrip.Helpers
 {
@@ -28,6 +34,12 @@ namespace APITrip.Helpers
             }
             ));
             CreateMap<FlotteCreateRequest, Flotte>();
+            CreateMap<VoyageCreateRequest, Voyage>();
+            CreateMap<ChauffeurCreateRequest, Chauffeur>();
+            CreateMap<GestionnaireCreateRequest, Gestionnaire>();
+            CreateMap<OffreCreateRequest, Offre>();
+            CreateMap<ReservationCreateRequest, Reservation>();
+            CreateMap<ClientCreateRequest, Client>();
         }
     }
 }
