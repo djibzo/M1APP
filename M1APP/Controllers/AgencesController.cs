@@ -163,6 +163,21 @@ namespace M1APP.Controllers
             }
             base.Dispose(disposing);
         }
+<<<<<<< HEAD
+
+        public ActionResult AgenceReport()
+        {
+            var reportData = db.agences.Select(a => new AgenceReportViewModel
+            {
+                AdresseAgence = a.AdresseAgence,
+                Longitude = a.Longitude,
+                Latitude = a.Latitude,
+                NineaGestionnaire = a.NineaGestionnaire
+             
+            }).ToList();
+
+            return View(reportData);
+=======
         public DataTable GetTableAgence()
         {
             DataTable table = new DataTable();
@@ -195,6 +210,7 @@ namespace M1APP.Controllers
                 Rpt.Dispose();
                 Rpt.Close();
             }
+>>>>>>> a26bd35877e5a441f832999df6909499765c7e8b
         }
     }
 }

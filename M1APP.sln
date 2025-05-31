@@ -5,7 +5,11 @@ VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M1APP", "M1APP\M1APP.csproj", "{C7FE5F1D-5733-4E76-9AEF-0389DC18DBA5}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAgenceCore", "GestionAgenceCore\GestionAgenceCore.csproj", "{24F66398-1FA1-4479-B877-B1E7D10ECF54}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APITrip", "APITrip\APITrip.csproj", "{E7922636-8781-47C3-9B81-841C1A21F127}"
+>>>>>>> b5920d6b72f9e12e46c628e183cd32406a2fa06e
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,22 @@ Global
 		{C7FE5F1D-5733-4E76-9AEF-0389DC18DBA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7FE5F1D-5733-4E76-9AEF-0389DC18DBA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7FE5F1D-5733-4E76-9AEF-0389DC18DBA5}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{24F66398-1FA1-4479-B877-B1E7D10ECF54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24F66398-1FA1-4479-B877-B1E7D10ECF54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24F66398-1FA1-4479-B877-B1E7D10ECF54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24F66398-1FA1-4479-B877-B1E7D10ECF54}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{E7922636-8781-47C3-9B81-841C1A21F127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7922636-8781-47C3-9B81-841C1A21F127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7922636-8781-47C3-9B81-841C1A21F127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7922636-8781-47C3-9B81-841C1A21F127}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> b5920d6b72f9e12e46c628e183cd32406a2fa06e
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DD4B449-995B-45BC-8B9E-B7F22E29EECD}
 	EndGlobalSection
 EndGlobal

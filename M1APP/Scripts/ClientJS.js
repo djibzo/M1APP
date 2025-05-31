@@ -88,7 +88,7 @@ function editClient(id) {
                 var client = response.data;
                 // Afficher un formulaire de modification avec les données du client
                 // Vous pouvez utiliser un modal ou une autre méthode pour afficher le formulaire
-                // Exemple de code pour afficher un formulaire de modification
+                
                 $('#editClientForm').find('input[name="IdUtilisateur"]').val(client.IdUtilisateur);
                 $('#editClientForm').find('input[name="CniClient"]').val(client.CniClient);
                 $('#editClientForm').find('input[name="NomUtilisateur"]').val(client.NomUtilisateur);
@@ -210,7 +210,7 @@ function selectClient(cniClient) {
         data: { query: cniClient },
         dataType: 'json',
         success: function (data) {
-            $('#clientTableBody').empty(); // Vider le corps du tableau avant de le remplir
+            $('#clientTableBody').empty(); // Vider le corps du tableau 
 
             if (data.length === 0) {
                 $('#clientTableBody').append('<tr><td colspan="6" style="text-align: center; padding: 12px; color: red;">Aucun client trouvé.</td></tr>');
