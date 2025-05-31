@@ -44,15 +44,6 @@ namespace APITrip.Services
 
         public void Create(GestionnaireCreateRequest model)
         {
-            //var gestionnaire = new Gestionnaire
-            //{
-            //    Id = _nextId++,
-            //    CNIGestionnaire=model.CNIGestionnaire,
-            //    FirstName = model.FirstName,
-            //    LastName = model.LastName,
-            //    Email = model.Email,
-            //    PasswordHash = model.PasswordHash,
-            //};
             var gestionnaire = _mapper.Map<Gestionnaire>(model);
             gestionnaire.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.PasswordHash);
             _context.Gestionnaires.Add(gestionnaire);
