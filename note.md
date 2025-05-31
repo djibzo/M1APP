@@ -70,3 +70,25 @@ Les concepts abordés aujourd'hui sont essentiels pour structurer une applicatio
 - **Swagger** : il permet de documenter et de tester facilement l'API.
 
 Cette organisation respecte l'architecture en couche, idéale pour un backend API, et prépare le projet à une évolution vers une architecture plus avancée comme Onion si besoin.
+
+# Compte rendu du 31 mai 2025
+
+## Ce que nous avons fait aujourd'hui
+
+- Nous avons renommé tous les modèles de requête (CreateRequest et UpdateRequest) pour chaque entité afin d'éviter les conflits de schéma dans Swagger (ex : FlotteCreateRequest, AgenceUpdateRequest, etc.).
+- Nous avons mis à jour tous les services pour utiliser ces nouveaux modèles spécifiques à chaque entité.
+- Tous les contrôleurs ont été adaptés pour utiliser les bons modèles et pour retourner les bons codes HTTP (201 Created, 204 NoContent, 404 NotFound, 400 BadRequest, 500 InternalServerError).
+- Nous avons ajouté une gestion d'erreur robuste dans chaque contrôleur avec des blocs try/catch et des messages d'erreur explicites pour chaque opération (création, modification, suppression, récupération).
+- L'injection de dépendances a été vérifiée et corrigée pour tous les services dans Program.cs.
+- Swagger fonctionne désormais sans conflit et l'API est conforme aux bonnes pratiques REST.
+
+## Pourquoi ces changements ?
+
+- **Unicité des modèles** : Renommer les modèles évite les collisions de schéma dans Swagger et clarifie le code.
+- **Robustesse** : La gestion d'erreur centralisée permet de mieux informer le client en cas de problème et d'éviter les plantages serveur non gérés.
+- **Lisibilité et maintenabilité** : Chaque entité a ses propres modèles et services, ce qui rend le projet plus clair et évolutif.
+- **Respect des standards REST** : Les bons codes HTTP sont utilisés pour chaque opération, ce qui facilite l'intégration avec des clients front-end ou mobiles.
+
+## Bilan
+
+Le projet est maintenant structuré de façon professionnelle, prêt pour une évolution vers une architecture plus avancée (Onion, DDD, etc.) et pour une utilisation en production ou en équipe.

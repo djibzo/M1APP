@@ -22,32 +22,69 @@ namespace APITrip.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
-            return Ok(users);
+            try
+            {
+                var users = _userService.GetAll();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des utilisateurs : " + ex.Message });
+            }
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user = _userService.GetById(id);
-            return Ok(user);
+            try
+            {
+                var user = _userService.GetById(id);
+                if (user == null)
+                    return NotFound(new { message = "Utilisateur non trouvé" });
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération de l'utilisateur : " + ex.Message });
+            }
         }
         [HttpPost]
         public IActionResult Create(CreateRequest model)
         {
-            _userService.Create(model);
-            return Ok(new { message = "User created" });
+            try
+            {
+                _userService.Create(model);
+                return StatusCode(201, new { message = "Utilisateur créé avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la création : " + ex.Message });
+            }
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdateRequest model)
         {
-            _userService.Update(id, model);
-            return Ok(new { message = "User updated" });
+            try
+            {
+                _userService.Update(id, model);
+                return Ok(new { message = "Utilisateur modifié avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la modification : " + ex.Message });
+            }
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userService.Delete(id);
-            return Ok(new { message = "User deleted" });
+            try
+            {
+                _userService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la suppression : " + ex.Message });
+            }
         }
     }
 }

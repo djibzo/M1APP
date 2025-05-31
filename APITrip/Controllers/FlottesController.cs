@@ -24,36 +24,73 @@ namespace APITrip.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var flottes = _flotteService.GetAll();
-            return Ok(flottes);
+            try
+            {
+                var flottes = _flotteService.GetAll();
+                return Ok(flottes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des flottes : " + ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var flotte = _flotteService.GetById(id);
-            return Ok(flotte);
+            try
+            {
+                var flotte = _flotteService.GetById(id);
+                if (flotte == null)
+                    return NotFound(new { message = "Flotte non trouvée" });
+                return Ok(flotte);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération de la flotte : " + ex.Message });
+            }
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] FlotteCreateRequest model)
         {
-            _flotteService.Create(model);
-            return Ok(new { message = "Flotte created" });
+            try
+            {
+                _flotteService.Create(model);
+                return StatusCode(201, new { message = "Flotte créée avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la création : " + ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] FlotteUpdateRequest model)
         {
-            _flotteService.Update(id, model);
-            return Ok(new { message = "Flotte updated" });
+            try
+            {
+                _flotteService.Update(id, model);
+                return Ok(new { message = "Flotte modifiée avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la modification : " + ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _flotteService.Delete(id);
-            return Ok(new { message = "Flotte deleted" });
+            try
+            {
+                _flotteService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erreur lors de la suppression : " + ex.Message });
+            }
         }
     }
 }
