@@ -115,7 +115,7 @@ Le projet est maintenant structuré de façon professionnelle, prêt pour une é
 
   IdentityUser est une classe fournie par ASP.NET Core Identity qui représente un utilisateur dans le système d'authentification et de gestion des utilisateurs. Elle contient des propriétés standard pour gérer les informations d'un utilisateur, telles que le nom d'utilisateur, l'adresse e-mail, le mot de passe haché, etc.
 
-  Configuration du modèle utilisateur : Par défaut, ASP.NET Core Identity utilise la classe IdentityUser. Cependant, vous pouvez créer une classe personnalisée qui hérite de IdentityUser pour ajouter des propriétés spécifiques à notre application.
+  Configuration du modèle utilisateur : Par défaut, ASP.NET Core Identity utilise la classe IdentityUser. Cependant, nous pouvons  créer une classe personnalisée (user ici) qui hérite de IdentityUser pour ajouter des propriétés spécifiques à notre application.
 Le modèle User hérite de IdentityUser, qui fournit des propriétés et des méthodes pour gérer les utilisateurs.
 ### Workflow d'authentification JWT
 
