@@ -14,7 +14,8 @@ namespace APITrip.Entities
         [Display(Name = "Statut"), Required(ErrorMessage = "*")]
         public string StatutReservation { get; set; }
 
-        [ForeignKey("Client")]
+        public string ClientId { get; set; }
+        [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }
     }
 }

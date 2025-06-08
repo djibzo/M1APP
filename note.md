@@ -1,3 +1,5 @@
+# PROJET APITrip notes
+
 # Cour du 17 Mai 2025
 
 ## Résumé de la journée
@@ -92,3 +94,114 @@ Cette organisation respecte l'architecture en couche, idéale pour un backend AP
 ## Bilan
 
 Le projet est maintenant structuré de façon professionnelle, prêt pour une évolution vers une architecture plus avancée (Onion, DDD, etc.) et pour une utilisation en production ou en équipe.
+
+# Compte rendu du 8 juin 2025
+
+## Ce que nous avons fait aujourd'hui
+
+### Intégration de l'authentification JWT
+- Ajout des propriétés `RefreshToken` et `RefreshTokenExpiryTime` dans le modèle `User`.
+- Création des modèles d'authentification :
+  - `RegisterModel` : pour gérer les données d'inscription.
+  - `LoginModel` : pour gérer les données de connexion.
+  - `TokenModel` : pour représenter les tokens d'accès et de rafraîchissement.
+  - `Response` : pour standardiser les réponses de l'API.
+- Création du contrôleur `AuthenticateController` avec les endpoints suivants :
+  - `register` : pour enregistrer un nouvel utilisateur.
+  - `login` : pour connecter un utilisateur et générer des tokens.
+  - `refresh-token` : pour rafraîchir les tokens expirés.
+
+### utilisation de IdentityUser 
+
+  IdentityUser est une classe fournie par ASP.NET Core Identity qui représente un utilisateur dans le système d'authentification et de gestion des utilisateurs. Elle contient des propriétés standard pour gérer les informations d'un utilisateur, telles que le nom d'utilisateur, l'adresse e-mail, le mot de passe haché, etc.
+
+  Configuration du modèle utilisateur : Par défaut, ASP.NET Core Identity utilise la classe IdentityUser. Cependant, vous pouvez créer une classe personnalisée qui hérite de IdentityUser pour ajouter des propriétés spécifiques à notre application.
+Le modèle User hérite de IdentityUser, qui fournit des propriétés et des méthodes pour gérer les utilisateurs.
+### Workflow d'authentification JWT
+
+1. **Inscription (`register`)** :
+   - L'utilisateur envoie ses informations (nom, email, mot de passe, etc.) au serveur via le endpoint `register`.
+   - Le serveur valide les données, hache le mot de passe, et enregistre l'utilisateur dans la base de données.
+   - Une réponse est envoyée pour confirmer l'inscription.
+
+2. **Connexion (`login`)** :
+   - L'utilisateur envoie ses identifiants (email et mot de passe) au serveur via le endpoint `login`.
+   - Le serveur vérifie les identifiants et génère un token JWT d'accès et un token de rafraîchissement.
+   - Les tokens sont retournés dans la réponse.
+
+3. **Utilisation des tokens** :
+   - Le client inclut le token JWT d'accès dans l'en-tête `Authorization` pour chaque requête protégée.
+   - Le serveur valide le token avant de traiter la requête.
+
+4. **Rafraîchissement des tokens (`refresh-token`)** :
+   - Lorsque le token d'accès expire, le client utilise le token de rafraîchissement pour demander un nouveau token d'accès via le endpoint `refresh-token`.
+   - Le serveur valide le token de rafraîchissement et génère un nouveau token d'accès.
+
+5. **Déconnexion** :
+   - Le client peut invalider le token de rafraîchissement en appelant un endpoint de déconnexion (optionnel).
+   - Cela empêche l'utilisation future du token de rafraîchissement.
+
+### Exemple de requête `login`
+
+```json
+POST /api/authenticate/login
+Content-Type: application/json
+
+{
+  "username": "papa99",
+  "password": "Passer1&"
+}
+```
+
+### Exemple de réponse `login`
+
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "d1f5e8c3-4c9b-4f5e-9b8c-3e4c9b4f5e9b",
+  "expiresIn": 3600
+}
+```
+
+### Exemple d'en-tête pour une requête protégée
+
+```http
+GET /api/protected-resource
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Configuration de l'authentification JWT
+- Ajout de la configuration JWT dans `Program.cs` :
+  - Configuration des schémas d'authentification.
+  - Validation des tokens avec les paramètres nécessaires (issuer, audience, clé secrète).
+- Ajout des paramètres JWT dans `appsettings.json` :
+  - `ValidAudience`, `ValidIssuer`, `Secret`, `TokenValidityInMinutes`, `RefreshTokenValidityInDays`.
+
+### Intégration avec Swagger
+- Configuration de Swagger pour inclure l'authentification JWT :
+  - Ajout de la définition de sécurité `Bearer`.
+  - Ajout des exigences de sécurité pour les endpoints protégés.
+
+### Packages installés
+- Utilisation des packages suivants pour l'authentification et la sécurité :
+  - `Microsoft.AspNetCore.Identity` : pour la gestion des utilisateurs et des rôles.
+  - `Microsoft.AspNetCore.Authentication.JwtBearer` : pour l'authentification JWT.
+  - `Microsoft.IdentityModel.Tokens` : pour la génération et la validation des tokens.
+
+### Tests et sécurité
+- Préparation de l'API pour les tests via Swagger.
+- Sécurisation des endpoints avec `[Authorize]`.
+
+## Bilan
+L'authentification JWT est maintenant intégrée et fonctionnelle. Les endpoints peuvent être testés via Swagger, et l'API est prête pour une utilisation sécurisée.
+
+
+{
+  "username": "papa99",
+  "password": "Passer1&",
+  "email": "string",
+  "title": "dev",
+  "firstName": "string",
+  "lastName": "string"
+}
+

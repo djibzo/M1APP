@@ -25,7 +25,7 @@ namespace APITrip.Entities
 
         public virtual ICollection<Offre> Offres { get; set; }
 
-        public int? IdGestionnaire { set; get; }
+        public string? IdGestionnaire { set; get; }
 
         [ForeignKey("IdGestionnaire")]
         public virtual Gestionnaire Gestionnaire { get; set; }
