@@ -16,7 +16,8 @@ namespace APITrip.models.Gestionnaires
         [Required, MaxLength(80), DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [EnumDataType(typeof(Role))]
-        public string Role { get; set; }
+        public string Role  { get; set; }
         public string PasswordHash { get; set; }
+       
     }
 }

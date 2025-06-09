@@ -40,6 +40,7 @@ namespace APITrip.Helpers
             CreateMap<OffreCreateRequest, Offre>();
             CreateMap<ReservationCreateRequest, Reservation>();
             CreateMap<ClientCreateRequest, Client>();
+            CreateMap<GestionnaireUpdateRequest, Gestionnaire>();
         }
     }
 }

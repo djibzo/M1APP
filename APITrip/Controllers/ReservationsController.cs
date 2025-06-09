@@ -18,6 +18,6 @@ namespace APITrip.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ReservationUpdateRequest model) { _service.Update(id, model); return Ok(new { message = "Reservation updated" }); }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) { _service.Delete(id); return Ok(new { message = "Reservation deleted" }); }
+        public IActionResult Delete(int id) { _service.Delete(id); return NoContent(); }
     }
 }

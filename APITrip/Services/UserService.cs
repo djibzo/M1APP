@@ -55,10 +55,6 @@ namespace APITrip.Services
             if (model.Email != user.Email && _context.Users.Any(x => x.Email ==
            model.Email))
                 throw new AppException("User with the email '" + model.Email + "'already exists");
-        // hash password if it was entered
- if (!string.IsNullOrEmpty(model.Password))
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword
-                    (model.Password);
             // copy model to user and save
             _mapper.Map(model, user);
             _context.Users.Update(user);
