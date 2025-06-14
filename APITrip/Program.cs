@@ -9,34 +9,51 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
-builder.Services.AddDbContext<DataContext>(options =>
+
+services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TestDb")));
 
-builder.Services.AddControllers().AddJsonOptions(x =>
+// Ajouter la politique CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+services.AddCors(options =>
 {
-// serialize enums as strings in api responses (e.g. Role)
- x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-// ignore omitted parameters on models to enable optional params (e.g.User update)
- x.JsonSerializerOptions.DefaultIgnoreCondition =
-JsonIgnoreCondition.WhenWritingNull;
- });
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // URL de ton frontend Vue
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+services.AddControllers().AddJsonOptions(x =>
+{
+    // serialize enums as strings in api responses (e.g. Role)
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    // ignore omitted parameters on models to enable optional params (e.g.User update)
+    x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    // Convertir les propriétés en camelCase dans le JSON
+    x.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+});
+
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // configure DI for application services
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAgenceService, AgenceService>();
-builder.Services.AddScoped<IChauffeurService, ChauffeurService>();
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IGestionnaireService, GestionnaireService>();
-builder.Services.AddScoped<IOffreService, OffreService>();
-builder.Services.AddScoped<IReservationService, ReservationService>();
-builder.Services.AddScoped<IFlotteService, FlotteService>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddScoped<IUserService, UserService>();
+services.AddScoped<IAgenceService, AgenceService>();
+services.AddScoped<IChauffeurService, ChauffeurService>();
+services.AddScoped<IClientService, ClientService>();
+services.AddScoped<IGestionnaireService, GestionnaireService>();
+services.AddScoped<IOffreService, OffreService>();
+services.AddScoped<IReservationService, ReservationService>();
+services.AddScoped<IFlotteService, FlotteService>();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -44,6 +61,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Activer la politique CORS ici
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
