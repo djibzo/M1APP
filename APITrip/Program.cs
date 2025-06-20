@@ -7,8 +7,18 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NLog.Extensions.Logging;
+
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
+
+builder.Services.AddLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.SetMinimumLevel(LogLevel.Trace);
+});
+// Add NLog as the logger provider
+builder.Services.AddSingleton<ILoggerProvider, NLogLoggerProvider>();
 // Add services to the container.
 var services = builder.Services;
 builder.Services.AddDbContext<DataContext>(options =>
@@ -52,6 +62,17 @@ builder.Services.AddAuthentication(options =>
    SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -100,7 +121,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 var app = builder.Build();
-
+app.UseCors("AllowReact");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

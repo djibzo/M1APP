@@ -17,15 +17,16 @@ namespace APITrip.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-
+        private readonly ILogger<WeatherForecastController> _logger;
         public AuthenticateController(
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<IdentityRole> roleManager, ILogger<WeatherForecastController> logger,
             IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -51,6 +52,7 @@ namespace APITrip.Controllers
                 user.RefreshToken = refreshToken;
                 user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(refreshTokenValidityInDays);
                 await _userManager.UpdateAsync(user);
+                _logger.LogInformation("User {Username} logged in successfully", model.Username);
                 return Ok(new
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -58,6 +60,7 @@ namespace APITrip.Controllers
                     Expiration = token.ValidTo
                 });
             }
+            _logger.LogWarning("Login failed for user {Username}", model.Username);
             return Unauthorized();
         }
 
@@ -102,6 +105,7 @@ namespace APITrip.Controllers
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
             {
+                _logger.LogInformation("User {Username} already exists", model.Username);
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response
                 {
                     Status = "Error",
@@ -120,6 +124,7 @@ namespace APITrip.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
+                _logger.LogError("User creation failed for {Username}: {Errors}", model.Username, result.Errors);
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response
                 {
                     Status = "Error",
@@ -138,7 +143,7 @@ namespace APITrip.Controllers
                 await _userManager.AddToRoleAsync(user, UserRoles.Admin);
             if (await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
-
+            _logger.LogInformation("User {Username} created successfully and assigned roles", model.Username);
             return Ok(new Response
             {
                 Status = "Success",
@@ -152,6 +157,7 @@ namespace APITrip.Controllers
         {
             if (tokenModel is null)
             {
+                _logger.LogInformation($"{nameof(RefreshToken)} is null.");
                 return BadRequest("Invalid client request");
             }
             string? accessToken = tokenModel.AccessToken;
@@ -159,18 +165,21 @@ namespace APITrip.Controllers
             var principal = GetPrincipalFromExpiredToken(accessToken);
             if (principal == null)
             {
+                _logger.LogWarning("Invalid access token or refreshtoken");
                 return BadRequest("Invalid access token or refreshtoken");
             }
             string username = principal.Identity.Name;
             var user = await _userManager.FindByNameAsync(username);
             if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
+                _logger.LogWarning($"{nameof(RefreshToken)} Invalid: {username}");
                 return BadRequest("Invalid access token or refreshtoken");
             }
             var newAccessToken = CreateToken(principal.Claims.ToList());
             var newRefreshToken = GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
             await _userManager.UpdateAsync(user);
+            _logger.LogInformation("User {Username} refreshed tokens successfully", username);
             return new ObjectResult(new
             {
                 accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
