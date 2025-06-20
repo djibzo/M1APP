@@ -54,10 +54,18 @@ namespace APITrip.Services
 
         public void Update(int id, GestionnaireUpdateRequest model)
         {
-            var gestionnaire = GetById(id);
-            _mapper.Map(model, gestionnaire);
-            _context.Gestionnaires.Update(gestionnaire);
-            _context.SaveChanges();
+            try
+            {
+                var gestionnaire = GetById(id);
+                _mapper.Map(model, gestionnaire);
+                _context.Gestionnaires.Update(gestionnaire);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("An error occurred while updating the gestionnaire", ex);
+            }
+            
         }
 
         public void Delete(int id)

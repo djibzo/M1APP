@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APITrip.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GestionnairesController : ControllerBase

@@ -5,8 +5,6 @@
     public class FlotteUpdateRequest
     {
         [Required]
-        public int IdFlotte { get; set; }
-        [Required]
         public required string TypeFlotte { get; set; }
         [Required]
         public required string MatriculeFlotte { get; set; }
