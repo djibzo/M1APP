@@ -1,6 +1,7 @@
 using APITrip.Entities;
 using APITrip.models.Chauffeurs;
 using System.Collections.Generic;
+using APITrip.Helpers;
 
 namespace APITrip.Services
 {
@@ -14,30 +15,45 @@ namespace APITrip.Services
     }
     public class ChauffeurService : IChauffeurService
     {
+        private readonly DataContext _context;
+
+        public ChauffeurService(DataContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Chauffeur> GetAll()
         {
-            // À remplacer par l'accès à la base de données (exemple : return _context.Chauffeurs;)
-            throw new NotImplementedException();
+            return _context.Chauffeurs;
         }
+
         public Chauffeur GetById(int id)
         {
-            // À remplacer par l'accès à la base de données (exemple : return _context.Chauffeurs.Find(id);)
-            throw new NotImplementedException();
+            var chauffeur = _context.Chauffeurs.Find(id);
+            if (chauffeur == null) throw new KeyNotFoundException("Chauffeur not found");
+            return chauffeur;
         }
+
         public void Create(ChauffeurCreateRequest model)
         {
-            // À remplacer par la logique de création en base de données
-            throw new NotImplementedException();
+            var chauffeur = new Chauffeur { /* Map properties from model */ };
+            _context.Chauffeurs.Add(chauffeur);
+            _context.SaveChanges();
         }
+
         public void Update(int id, ChauffeurUpdateRequest model)
         {
-            // À remplacer par la logique de mise à jour en base de données
-            throw new NotImplementedException();
+            var chauffeur = GetById(id);
+            // Update properties
+            _context.Chauffeurs.Update(chauffeur);
+            _context.SaveChanges();
         }
+
         public void Delete(int id)
         {
-            // À remplacer par la logique de suppression en base de données
-            throw new NotImplementedException();
+            var chauffeur = GetById(id);
+            _context.Chauffeurs.Remove(chauffeur);
+            _context.SaveChanges();
         }
     }
 }

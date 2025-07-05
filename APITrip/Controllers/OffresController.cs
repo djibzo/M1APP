@@ -8,7 +8,11 @@ namespace APITrip.Controllers
     [ApiController]
     public class OffresController : ControllerBase
     {
-        private readonly OffreService _service = new();
+        private readonly IOffreService _service; 
+        public OffresController(IOffreService service)
+        {
+            _service = service; 
+        }
         [HttpGet]
         public IActionResult GetAll() => Ok(_service.GetAll());
         [HttpGet("{id}")]

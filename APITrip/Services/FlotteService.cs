@@ -39,10 +39,12 @@ namespace APITrip.Services
 
         public void Create(FlotteCreateRequest model)
         {
-            if (_context.Flottes.Any(x => x.MatriculeFlotte == model.MatriculeFlotte))
-                throw new AppException("Flotte with the matricule '" + model.MatriculeFlotte + "' already exists");
-
-            var flotte = _mapper.Map<Flotte>(model);
+            var flotte = new Flotte
+            {
+                TypeFlotte = model.TypeFlotte,
+                MatriculeFlotte = model.MatriculeFlotte
+            };
+            // Save flotte to database
             _context.Flottes.Add(flotte);
             _context.SaveChanges();
         }

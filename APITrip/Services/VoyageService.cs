@@ -1,6 +1,7 @@
 using APITrip.Entities;
 using APITrip.models.Voyages;
 using System.Collections.Generic;
+using APITrip.Helpers;
 
 namespace APITrip.Services
 {
@@ -14,25 +15,52 @@ namespace APITrip.Services
     }
     public class VoyageService : IVoyageService
     {
+        private readonly DataContext _context;
+
+        public VoyageService(DataContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Voyage> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Voyages;
         }
+
         public Voyage GetById(int id)
         {
-            throw new NotImplementedException();
+            var voyage = _context.Voyages.Find(id);
+            if (voyage == null) throw new KeyNotFoundException("Voyage not found");
+            return voyage;
         }
+
         public void Create(VoyageCreateRequest model)
         {
-            throw new NotImplementedException();
+            var voyage = new Voyage
+            {
+                Destination = model.Destination,
+                DateDepart = model.DateDepart,
+                DateArrivee = model.DateArrivee,
+                Prix = model.Prix
+            };
+            // Save voyage to database
+            _context.Voyages.Add(voyage);
+            _context.SaveChanges();
         }
+
         public void Update(int id, VoyageUpdateRequest model)
         {
-            throw new NotImplementedException();
+            var voyage = GetById(id);
+            // Update properties
+            _context.Voyages.Update(voyage);
+            _context.SaveChanges();
         }
+
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var voyage = GetById(id);
+            _context.Voyages.Remove(voyage);
+            _context.SaveChanges();
         }
     }
 }

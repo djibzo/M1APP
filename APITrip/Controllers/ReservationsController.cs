@@ -8,7 +8,12 @@ namespace APITrip.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
-        private readonly ReservationService _service = new();
+        private readonly IReservationService _service;
+
+        public ReservationsController(IReservationService service)
+        {
+            _service = service;
+        }
         [HttpGet]
         public IActionResult GetAll()
         {

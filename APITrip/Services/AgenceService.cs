@@ -1,6 +1,9 @@
 using APITrip.Entities;
 using APITrip.models.Agences;
+using APITrip.Helpers;
 using System.Collections.Generic;
+using System.Linq;
+
 
 namespace APITrip.Services
 {
@@ -14,25 +17,83 @@ namespace APITrip.Services
     }
     public class AgenceService : IAgenceService
     {
+        private readonly DataContext _context;
+
+        public AgenceService(DataContext context) // Corrected constructor name
+        {
+            _context = context;
+        }
+
         public IEnumerable<Agence> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Agences;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching agences", ex);
+            }
         }
         public Agence GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var agence = _context.Agences.Find(id);
+                if (agence == null) throw new KeyNotFoundException("Agence not found");
+                return agence;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching agence by ID", ex);
+            }
         }
         public void Create(AgenceCreateRequest model)
         {
-            throw new NotImplementedException();
+            var agence = new Agence
+            {
+                AdresseAgence = model.AdresseAgence,
+                Longitude = model.Longitude,
+                Latitude = model.Latitude,
+                NineaGestionnaire = model.NineaGestionnaire,
+                RccmGestionnaire = model.RccmGestionnaire,
+                IdGestionnaire = model.IdGestionnaire.ToString()
+            };
+            // Save agence to database
+            _context.Agences.Add(agence);
+            _context.SaveChanges();
         }
         public void Update(int id, AgenceUpdateRequest model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var agence = _context.Agences.Find(id);
+                if (agence == null) throw new KeyNotFoundException("Agence not found");
+                // Map properties from model
+                agence.AdresseAgence = model.AdresseAgence;
+                agence.Longitude = model.Longitude;
+                agence.Latitude = model.Latitude;
+                _context.Agences.Update(agence);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating agence", ex);
+            }
         }
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var agence = _context.Agences.Find(id);
+                if (agence == null) throw new KeyNotFoundException("Agence not found");
+                _context.Agences.Remove(agence);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting agence", ex);
+            }
         }
     }
 }

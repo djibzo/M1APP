@@ -8,7 +8,12 @@ namespace APITrip.Controllers
     [ApiController]
     public class GestionnairesController : ControllerBase
     {
-        private readonly GestionnaireService _service = new();
+        private readonly IGestionnaireService _service;
+
+        public GestionnairesController(IGestionnaireService service)
+        {
+            _service = service;
+        }
         [HttpGet]
         public IActionResult GetAll()
         {

@@ -1,6 +1,7 @@
 using APITrip.Entities;
 using APITrip.models.Clients;
 using System.Collections.Generic;
+using APITrip.Helpers;
 
 namespace APITrip.Services
 {
@@ -14,25 +15,49 @@ namespace APITrip.Services
     }
     public class ClientService : IClientService
     {
+        private readonly DataContext _context;
+
+        public ClientService(DataContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Client> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Clients;
         }
+
         public Client GetById(int id)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.Find(id);
+            if (client == null) throw new KeyNotFoundException("Client not found");
+            return client;
         }
+
         public void Create(ClientCreateRequest model)
         {
-            throw new NotImplementedException();
+            var client = new Client
+            {
+                CniClient = model.CniClient
+            };
+            // Save client to database
+            _context.Clients.Add(client);
+            _context.SaveChanges();
         }
+
         public void Update(int id, ClientUpdateRequest model)
         {
-            throw new NotImplementedException();
+            var client = GetById(id);
+            // Update properties
+            _context.Clients.Update(client);
+            _context.SaveChanges();
         }
+
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var client = GetById(id);
+            _context.Clients.Remove(client);
+            _context.SaveChanges();
         }
     }
 }

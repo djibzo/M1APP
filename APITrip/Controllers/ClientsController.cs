@@ -8,7 +8,12 @@ namespace APITrip.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly ClientService _service = new();
+        private readonly IClientService _service;
+
+        public ClientsController(IClientService service)
+        {
+            _service = service;
+        }
         [HttpGet]
         public IActionResult GetAll() => Ok(_service.GetAll());
         [HttpGet("{id}")]
