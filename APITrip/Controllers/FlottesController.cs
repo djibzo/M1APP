@@ -54,7 +54,7 @@ namespace APITrip.Controllers
         public IActionResult Delete(int id)
         {
             _flotteService.Delete(id);
-            return Ok(new { message = "Flotte deleted" });
+            return NoContent();
         }
     }
 }

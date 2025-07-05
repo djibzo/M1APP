@@ -34,12 +34,14 @@ namespace APITrip.Services
         }
         public IEnumerable<Gestionnaire> GetAll()
         {
-            return _gestionnaires;
+            return _context.Gestionnaires;
         }
 
         public Gestionnaire GetById(int id)
         {
-            return _gestionnaires.FirstOrDefault(g => g.Id == id);
+            var gestionnaire = _context.Gestionnaires.Find(id);
+            if (gestionnaire == null) throw new KeyNotFoundException("Gestionnaire not found");
+            return gestionnaire;
         }
 
         public void Create(GestionnaireCreateRequest model)
@@ -52,24 +54,25 @@ namespace APITrip.Services
 
         public void Update(int id, GestionnaireUpdateRequest model)
         {
-            var gestionnaire = GetById(id);
-            if (gestionnaire == null)
-                throw new KeyNotFoundException($"Gestionnaire avec l'id {id} non trouvé.");
-
-            // Mettre à jour les propriétés ici
-            // Exemples :
-            // gestionnaire.Nom = model.Nom;
-            // gestionnaire.Prenom = model.Prenom;
-            // gestionnaire.Email = model.Email;
+            try
+            {
+                var gestionnaire = GetById(id);
+                _mapper.Map(model, gestionnaire);
+                _context.Gestionnaires.Update(gestionnaire);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("An error occurred while updating the gestionnaire", ex);
+            }
+            
         }
 
         public void Delete(int id)
         {
             var gestionnaire = GetById(id);
-            if (gestionnaire == null)
-                throw new KeyNotFoundException($"Gestionnaire avec l'id {id} non trouvé.");
-
-            _gestionnaires.Remove(gestionnaire);
+            _context.Gestionnaires.Remove(gestionnaire);
+            _context.SaveChanges();
         }
     }
 }

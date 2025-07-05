@@ -34,12 +34,15 @@ namespace APITrip.Helpers
             }
             ));
             CreateMap<FlotteCreateRequest, Flotte>();
+            CreateMap<FlotteUpdateRequest, Flotte>();
             CreateMap<VoyageCreateRequest, Voyage>();
             CreateMap<ChauffeurCreateRequest, Chauffeur>();
             CreateMap<GestionnaireCreateRequest, Gestionnaire>();
+            CreateMap<GestionnaireUpdateRequest, Gestionnaire>();
             CreateMap<OffreCreateRequest, Offre>();
             CreateMap<ReservationCreateRequest, Reservation>();
             CreateMap<ClientCreateRequest, Client>();
+            CreateMap<GestionnaireUpdateRequest, Gestionnaire>();
         }
     }
 }

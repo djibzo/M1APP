@@ -47,7 +47,7 @@ namespace APITrip.Controllers
         public IActionResult Delete(int id)
         {
             _userService.Delete(id);
-            return Ok(new { message = "User deleted" });
+            return NoContent();
         }
     }
 }

@@ -35,13 +35,10 @@ namespace APITrip.Services
             var offre = new Offre
             {
                 IdOffre = _nextId++,
-                // Copier ici les propriétés de model vers offre
-                // Par exemple :
-                // Titre = model.Titre,
-                // Description = model.Description,
-                // Prix = model.Prix,
-                // DateDebut = model.DateDebut,
-                // DateFin = model.DateFin,
+                DescriptionOffre = model.DescriptionOffre,
+                PrixOffre = model.PrixOffre,
+                DisponibiliteOffre = model.DisponibiliteOffre,
+                IdAgence = model.IdAgence
             };
 
             _offres.Add(offre);
@@ -53,13 +50,10 @@ namespace APITrip.Services
             if (offre == null)
                 throw new KeyNotFoundException($"Offre avec l'id {id} non trouvé.");
 
-            // Mettre à jour les propriétés ici
-            // Par exemple :
-            // offre.Titre = model.Titre;
-            // offre.Description = model.Description;
-            // offre.Prix = model.Prix;
-            // offre.DateDebut = model.DateDebut;
-            // offre.DateFin = model.DateFin;
+            offre.DescriptionOffre = model.DescriptionOffre;
+            offre.PrixOffre = model.PrixOffre;
+            offre.DisponibiliteOffre = model.DisponibiliteOffre;
+            offre.IdAgence = model.IdAgence;
         }
 
         public void Delete(int id)

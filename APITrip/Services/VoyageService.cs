@@ -17,7 +17,7 @@ namespace APITrip.Services
 
     public class VoyageService : IVoyageService
     {
-        // Liste statique simulant une base de données en mémoire
+        // Liste vide : l'utilisateur remplit les voyages via l'API
         private static List<Voyage> _voyages = new List<Voyage>();
         private static int _nextId = 1;
 

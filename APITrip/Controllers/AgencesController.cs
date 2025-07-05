@@ -47,7 +47,7 @@ namespace APITrip.Controllers
         public IActionResult Delete(int id)
         {
             _agenceService.Delete(id);
-            return Ok(new { message = "Agence deleted" });
+            return NoContent();
         }
     }
 }
