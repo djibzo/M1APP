@@ -21,31 +21,18 @@ builder.Services.AddLogging(logging =>
 builder.Services.AddSingleton<ILoggerProvider, NLogLoggerProvider>();
 // Add services to the container.
 var services = builder.Services;
-
-services.AddDbContext<DataContext>(options =>
+builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TestDb")));
-<<<<<<< HEAD
-
-// Ajouter la politique CORS
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173") // URL de ton frontend Vue
-=======
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TestDb")));
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
-// serialize enums as strings in api responses (e.g. Role)
- x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-// ignore omitted parameters on models to enable optional params (e.g.User update)
- x.JsonSerializerOptions.DefaultIgnoreCondition =
-JsonIgnoreCondition.WhenWritingNull;
- });
+    // serialize enums as strings in api responses (e.g. Role)
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    // ignore omitted parameters on models to enable optional params (e.g.User update)
+    x.JsonSerializerOptions.DefaultIgnoreCondition =
+   JsonIgnoreCondition.WhenWritingNull;
+});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
  .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -81,38 +68,11 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:5173")
->>>>>>> djibranch
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
 });
 
-<<<<<<< HEAD
-services.AddControllers().AddJsonOptions(x =>
-{
-    // serialize enums as strings in api responses (e.g. Role)
-    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    // ignore omitted parameters on models to enable optional params (e.g.User update)
-    x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    // Convertir les propriétés en camelCase dans le JSON
-    x.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
-});
-
-services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-// configure DI for application services
-services.AddScoped<IUserService, UserService>();
-services.AddScoped<IAgenceService, AgenceService>();
-services.AddScoped<IChauffeurService, ChauffeurService>();
-services.AddScoped<IClientService, ClientService>();
-services.AddScoped<IGestionnaireService, GestionnaireService>();
-services.AddScoped<IOffreService, OffreService>();
-services.AddScoped<IReservationService, ReservationService>();
-services.AddScoped<IFlotteService, FlotteService>();
-
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
-=======
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -134,7 +94,6 @@ builder.Services.AddSwaggerGen(c =>
         Title = "APITrip",
         Version = "v1"
     });
->>>>>>> djibranch
 
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
@@ -162,12 +121,8 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 var app = builder.Build();
-<<<<<<< HEAD
-
-=======
 app.UseCors("AllowReact");
 // Configure the HTTP request pipeline.
->>>>>>> djibranch
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -175,9 +130,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Activer la politique CORS ici
-app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
