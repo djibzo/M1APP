@@ -2,6 +2,7 @@
 using APITrip.models.Flotte;
 using APITrip.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace APITrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles="admin")]
     public class FlottesController : ControllerBase
     {
         private IFlotteService _flotteService;
