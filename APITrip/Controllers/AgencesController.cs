@@ -8,10 +8,14 @@ namespace APITrip.Controllers
     [ApiController]
     public class AgencesController : ControllerBase
     {
+
         private readonly IAgenceService _agenceService;
-        public AgencesController(IAgenceService agenceService)
+        private readonly APITrip.Kafka.KafkaProducerService _kafkaProducerService;
+
+        public AgencesController(IAgenceService agenceService, APITrip.Kafka.KafkaProducerService kafkaProducerService)
         {
             _agenceService = agenceService;
+            _kafkaProducerService = kafkaProducerService;
         }
 
         [HttpGet]
@@ -30,11 +34,14 @@ namespace APITrip.Controllers
             return Ok(agence);
         }
 
+
         [HttpPost]
-        public IActionResult Create([FromBody] AgenceCreateRequest model)
+        public async Task<IActionResult> Create([FromBody] AgenceCreateRequest model)
         {
             _agenceService.Create(model);
-            return Created("", new { message = "Agence created" });
+            // Envoi d'un message Kafka après la création
+            await _kafkaProducerService.ProduceAsync($"Agence créée: {System.Text.Json.JsonSerializer.Serialize(model)}");
+            return Created("", new { message = "Agence created and Kafka message sent" });
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] AgenceUpdateRequest model)

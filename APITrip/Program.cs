@@ -1,10 +1,10 @@
-using APITrip.Auth; 
+using APITrip.Auth;
 using APITrip.Helpers;
 using APITrip.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -14,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 // --- Configuration des Services ---
+
+// Kafka Producer Service
+builder.Services.AddSingleton<APITrip.Kafka.KafkaProducerService>();
 
 // NLog Logging
 builder.Services.AddLogging(logging =>
@@ -54,7 +57,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
@@ -100,12 +103,12 @@ builder.Services.AddAuthentication(options =>
         {
             Console.WriteLine("Token validated!");
 
-            // --- Logique pour extraire et ajouter les rôles Keycloak aux claims de l'utilisateur ---
+            // --- Logique pour extraire et ajouter les rï¿½les Keycloak aux claims de l'utilisateur ---
             var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
 
             if (claimsIdentity != null)
             {
-                // Extraire les rôles de royaume (Realm Roles)
+                // Extraire les rï¿½les de royaume (Realm Roles)
                 var realmAccessClaim = context.Principal.FindFirst("realm_access")?.Value;
                 if (!string.IsNullOrEmpty(realmAccessClaim))
                 {
@@ -126,8 +129,8 @@ builder.Services.AddAuthentication(options =>
                     }
                 }
 
-                // Extraire les rôles de client (Client Roles) spécifiques à votre API
-                // Assurez-vous que "ma-super-api" correspond au Client ID que vous avez défini dans Keycloak.
+                // Extraire les rï¿½les de client (Client Roles) spï¿½cifiques ï¿½ votre API
+                // Assurez-vous que "ma-super-api" correspond au Client ID que vous avez dï¿½fini dans Keycloak.
                 var resourceAccessClaim = context.Principal.FindFirst("resource_access")?.Value;
                 if (!string.IsNullOrEmpty(resourceAccessClaim))
                 {
@@ -151,14 +154,14 @@ builder.Services.AddAuthentication(options =>
                     }
                 }
             }
-          
 
-            return Task.CompletedTask; 
+
+            return Task.CompletedTask;
         }
     };
 });
 
-builder.Services.AddAuthorization(); 
+builder.Services.AddAuthorization();
 
 // CORS Policy
 builder.Services.AddCors(options =>
@@ -173,12 +176,12 @@ builder.Services.AddCors(options =>
 });
 
 // Swagger/OpenAPI 
-builder.Services.AddEndpointsApiExplorer(); // Doit être avant AddSwaggerGen
+builder.Services.AddEndpointsApiExplorer(); // Doit ï¿½tre avant AddSwaggerGen
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "APITrip", Version = "v1" });
 
-    // Ajout de la définition de sécurité Bearer pour Swagger UI
+    // Ajout de la dï¿½finition de sï¿½curitï¿½ Bearer pour Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -189,7 +192,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Entrez votre jeton JWT. Exemple : 12345abcdef",
     });
 
-    // Indiquer à Swagger d'utiliser la sécurité Bearer pour toutes les opérations
+    // Indiquer ï¿½ Swagger d'utiliser la sï¿½curitï¿½ Bearer pour toutes les opï¿½rations
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -216,10 +219,10 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IFlotteService, FlotteService>();
 
 
-// --- Configuration du pipeline de requêtes (Middleware) ---
+// --- Configuration du pipeline de requï¿½tes (Middleware) ---
 var app = builder.Build();
 
-app.UseCors("AllowReact"); 
+app.UseCors("AllowReact");
 
 if (app.Environment.IsDevelopment())
 {
@@ -233,6 +236,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers(); // Mapper les requêtes aux contrôleurs
+app.MapControllers(); // Mapper les requï¿½tes aux contrï¿½leurs
 
 app.Run();
