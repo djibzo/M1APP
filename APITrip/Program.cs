@@ -1,3 +1,4 @@
+using StackExchange.Redis;
 using APITrip.Auth;
 using APITrip.Helpers;
 using APITrip.Services;
@@ -10,8 +11,18 @@ using NLog.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System.Text.Json;
 using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
+
+// Redis
+var redisConnectionString = builder.Configuration["Redis:ConnectionString"];
+if (string.IsNullOrEmpty(redisConnectionString))
+{
+    throw new InvalidOperationException("La chaîne de connexion Redis est absente ou vide dans appsettings.json (section 'Redis:ConnectionString').");
+}
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
+builder.Services.AddScoped<APITrip.Redis.RedisService>();
 
 // --- Configuration des Services ---
 

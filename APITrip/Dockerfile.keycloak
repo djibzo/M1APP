@@ -1,0 +1,12 @@
+# Dockerfile pour Keycloak avec import automatique du realm
+FROM quay.io/keycloak/keycloak:24.0.5
+
+# Copie du fichier d'export du realm dans l'image
+COPY realm-export.json /opt/keycloak/data/import/realm-export.json
+
+# Variables d'environnement pour l'admin
+ENV KEYCLOAK_ADMIN=admin
+ENV KEYCLOAK_ADMIN_PASSWORD=admin
+
+# Démarrage de Keycloak avec import du realm
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm"]

@@ -11,11 +11,13 @@ namespace APITrip.Controllers
 
         private readonly IAgenceService _agenceService;
         private readonly APITrip.Kafka.KafkaProducerService _kafkaProducerService;
+        private readonly APITrip.Redis.RedisService _redisService;
 
-        public AgencesController(IAgenceService agenceService, APITrip.Kafka.KafkaProducerService kafkaProducerService)
+        public AgencesController(IAgenceService agenceService, APITrip.Kafka.KafkaProducerService kafkaProducerService, APITrip.Redis.RedisService redisService)
         {
             _agenceService = agenceService;
             _kafkaProducerService = kafkaProducerService;
+            _redisService = redisService;
         }
 
         [HttpGet]
@@ -41,7 +43,9 @@ namespace APITrip.Controllers
             _agenceService.Create(model);
             // Envoi d'un message Kafka après la création
             await _kafkaProducerService.ProduceAsync($"Agence créée: {System.Text.Json.JsonSerializer.Serialize(model)}");
-            return Created("", new { message = "Agence created and Kafka message sent" });
+            // Stockage dans Redis (clé = agence:{nom}, valeur = JSON)
+            await _redisService.SetAgenceAsync($"agence:{model.AdresseAgence}", System.Text.Json.JsonSerializer.Serialize(model));
+            return Created("", new { message = "Agence created, Kafka message sent, and saved in Redis" });
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] AgenceUpdateRequest model)
